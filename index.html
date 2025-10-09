@@ -17,34 +17,53 @@
     ];
 
     const TELEGRAM_URL = "https://t.me/comingLoots";
-    const THRESHOLD = 5; // आप इसे 5 से 6 बार क्लिक के लिए 5 या 6 सेट कर सकते हैं
+    const THRESHOLD = 5; // Telegram redirect के लिए क्लिक (click) की संख्या
+    const MAX_WA_LIMIT = 10; // WhatsApp नंबर (number) की अधिकतम सीमा
 
-    // 1. Local Storage से क्लिक काउंट प्राप्त करें (अगर कोई नहीं है, तो 0)
+    // 1. Local Storage से Telegram Click Count प्राप्त करें
     let clickCount = parseInt(localStorage.getItem('linkClicks')) || 0;
+    
+    // 2. Local Storage से WhatsApp Redirect Count प्राप्त करें
+    let waRedirects = parseInt(localStorage.getItem('waRedirects')) || 0;
 
-    // 2. क्लिक काउंट बढ़ाएँ
+    // 3. क्लिक काउंट बढ़ाएँ
     clickCount++;
     localStorage.setItem('linkClicks', clickCount);
+    
+    // --- मुख्य लॉजिक (Main Logic) ---
 
-    // 3. शर्त की जाँच करें
-    if (clickCount >= THRESHOLD) {
-      // अगर क्लिक काउंट दहलीज (threshold) तक पहुँच गया है, तो Telegram पर रीडायरेक्ट करें
-      window.location.replace(TELEGRAM_URL);
-      
-      // वैकल्पिक: एक बार जब Telegram खुल जाए, तो क्लिक काउंट को रीसेट कर दें 
-      // ताकि अगली बार यह फिर से WhatsApp नंबर से शुरू हो।
-      // localStorage.setItem('linkClicks', 0); 
+    if (waRedirects >= MAX_WA_LIMIT) {
+        // A. अगर 10 WhatsApp नंबर (number) पर रीडायरेक्ट हो चुका है, तो लिंक बंद करें
+        
+        // **"Link Stopped" संदेश (message) दिखाएँ**
+        document.body.innerHTML = '<h1>लिंक (Link) बंद हो गया है। आपने 10 अलग-अलग WhatsApp नंबर (number) का उपयोग कर लिया है।</h1>';
+        
+    } else if (clickCount >= THRESHOLD) {
+        // B. अगर Telegram की दहलीज (threshold) तक पहुँच गया है
+        
+        // **Pop-up में हिंदी संदेश**
+        alert('टेलीग्राम चैनल जॉइन करें, नए नंबर फिर मिलेंगे।');
+        
+        // Telegram पर रीडायरेक्ट करें
+        window.location.replace(TELEGRAM_URL);
+        
+        // क्लिक काउंट को रीसेट करें
+        localStorage.setItem('linkClicks', 0); 
+        
     } else {
-      // अगर दहलीज तक नहीं पहुँचा है, तो रैंडम WhatsApp नंबर पर रीडायरेक्ट करें
-      const pick = numbers[Math.floor(Math.random() * numbers.length)];
-      window.location.replace("https://wa.me/" + pick);
+        // C. अगर दहलीज तक नहीं पहुँचा है
+        
+        // रैंडम WhatsApp नंबर (number) चुनें और रीडायरेक्ट करें
+        const pick = numbers[Math.floor(Math.random() * numbers.length)];
+        window.location.replace("https://wa.me/" + pick);
+        
+        // WhatsApp रीडायरेक्ट काउंट बढ़ाएँ
+        waRedirects++;
+        localStorage.setItem('waRedirects', waRedirects);
     }
   </script>
 </head>
 <body>
   <p>Redirecting...</p>
 </body>
-
 </html>
-
-
