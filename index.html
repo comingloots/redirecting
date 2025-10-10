@@ -1,78 +1,181 @@
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>Google Map Agents</title>
-  <script>
-    const numbers = [
-      // --- Original Numbers ---
-      "918943498079","919740410459","919891806836","919936801035","916381875472",
-      "918567956686","918070487896","919762223202","918688177460","919546653672",
-      "919806930427","918679922508","919064860277","918673835452","919722987445",
-      "916353088769","919516758025","919170751555","919822027227","918210888908",
-      "918104407078","918104403185","919680422437","918858016249","916001817165",
-      "918104404340","918104403388","918104412489","919944671627","918104405855",
-      "918104402439","916009805338","919666921484","918104404693","918456870230",
-      "918679922508","916398459863","918082177080","919204189590","917906191357",
-      "916389753605","919523261570","919559631648","917070621284","919554185495",
-      // --- Added Numbers (Without 'https://wa.me/') ---
-      "918413031342","918801463127","917234846132","917519799239","917785985546",
-      "919069141644","917277916783","918943419482","918106532427","917098938158",
-      "916003705454","917437910309","916003796434","916002960305","919387610285",
-      "919168350552","916001461475","916003663064","916000627857","916000621742",
-      "919366817899","919153681930","918104406926","917339195200","919759611701",
-      "918479030973","919703935617","917422908564","916001810150","919661192029",
-      "918759234751","916291787616","916001077949"
-    ];
-
-    const TELEGRAM_URL = "https://t.me/comingLoots";
-    const THRESHOLD = 5; // Telegram redirect के लिए क्लिक (click) की संख्या
-    const MAX_WA_LIMIT = 10; // WhatsApp नंबर (number) की अधिकतम सीमा
-
-    // 1. Local Storage से Telegram Click Count प्राप्त करें
-    let clickCount = parseInt(localStorage.getItem('linkClicks')) || 0;
-    
-    // 2. Local Storage से WhatsApp Redirect Count प्राप्त करें
-    let waRedirects = parseInt(localStorage.getItem('waRedirects')) || 0;
-
-    // 3. क्लिक काउंट बढ़ाएँ
-    clickCount++;
-    localStorage.setItem('linkClicks', clickCount);
-    
-    // --- मुख्य लॉजिक (Main Logic) ---
-
-    if (waRedirects >= MAX_WA_LIMIT) {
-        // A. अगर 10 WhatsApp नंबर (number) पर रीडायरेक्ट हो चुका है, तो लिंक बंद करें
-        
-        // **"Link Stopped" संदेश (message) दिखाएँ**
-        document.body.innerHTML = '<h1>लिंक (Link) बंद हो गया है। आपने 10 अलग-अलग WhatsApp नंबर (number) का उपयोग कर लिया है।</h1>';
-        
-    } else if (clickCount >= THRESHOLD) {
-        // B. अगर Telegram की दहलीज (threshold) तक पहुँच गया है
-        
-        // **Pop-up में हिंदी संदेश**
-        alert('टेलीग्राम चैनल जॉइन करें, नए नंबर फिर मिलेंगे।');
-        
-        // Telegram पर रीडायरेक्ट करें
-        window.location.replace(TELEGRAM_URL);
-        
-        // क्लिक काउंट को रीसेट करें
-        localStorage.setItem('linkClicks', 0); 
-        
-    } else {
-        // C. अगर दहलीज तक नहीं पहुँचा है
-        
-        // रैंडम WhatsApp नंबर (number) चुनें और रीडायरेक्ट करें
-        const pick = numbers[Math.floor(Math.random() * numbers.length)];
-        window.location.replace("https://wa.me/" + pick);
-        
-        // WhatsApp रीडायरेक्ट काउंट बढ़ाएँ
-        waRedirects++;
-        localStorage.setItem('waRedirects', waRedirects);
-    }
-  </script>
+  <meta charset="utf-8" />
+  <title>Number Flow with Telegram Prompt</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <style>
+    body { font-family: Arial, sans-serif; padding: 20px; }
+    .card { max-width:700px; margin:0 auto; border:1px solid #eee; padding:18px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
+    .numbers-list { margin: 10px 0; }
+    .number-item { padding:8px 6px; border-bottom:1px solid #f0f0f0; }
+    .controls { margin-top:12px; }
+    input[type="text"] { padding:8px; width:60%; margin-right:8px; }
+    button { padding:8px 12px; cursor:pointer; border-radius:6px; border:1px solid #ccc; background:#fff; }
+    button.primary { background:#2b6cb0; color:#fff; border-color:#2b6cb0; }
+    /* Modal */
+    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:2000; }
+    .modal { background:#fff; padding:18px; border-radius:10px; max-width:420px; width:92%; box-shadow:0 8px 30px rgba(0,0,0,0.2); }
+    .modal h3 { margin-top:0; }
+    .modal .actions { margin-top:14px; text-align:right; }
+    .small { font-size:13px; color:#666; }
+  </style>
 </head>
 <body>
-  <p>Redirecting...</p>
+  <div class="card">
+    <h2>Get Numbers</h2>
+    <p class="small">Enter a number and click Add. After 2–3 adds, you'll be prompted to join the channel for the next number.</p>
+
+    <div class="controls">
+      <input id="numInput" type="text" placeholder="Enter number (digits only)" />
+      <button id="addBtn" class="primary">Add</button>
+      <button id="resetBtn">Reset</button>
+    </div>
+
+    <div class="numbers-list" id="numbersList"></div>
+
+    <div style="margin-top:12px;">
+      <strong>Current progress:</strong> <span id="progress">0</span> / <span id="total">0</span>
+    </div>
+  </div>
+
+  <!-- Modal -->
+  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
+    <div class="modal" role="document">
+      <h3>Join our Telegram channel</h3>
+      <p class="small">Join <strong>@comingloots</strong> to get access to the next number and future drops. Click Join to open Telegram. After joining, click "I joined" to continue.</p>
+      <div class="actions">
+        <a id="joinLink" href="https://t.me/comingloots" target="_blank" rel="noopener noreferrer">
+          <button class="primary">Join Channel</button>
+        </a>
+        <button id="joinedBtn" style="margin-left:8px;">I joined / Continue</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // --- Config ---
+    const TELEGRAM_URL = 'https://t.me/comingloots';
+    // Example numbers (use your responseJumpData list)
+    const AVAILABLE_NUMBERS = [
+      "12362390225","12362421116","12362421341","12362423538","12362425936",
+      "12364629673","12494688158","12494689601","12494947712","13655176053",
+      "14387035582","14387036105","14387037228","14387037377","14506009530",
+      "15818034511","16138962167","17786562223","17822972299","19144544367"
+    ];
+
+    // --- State persisted in localStorage so progress survives reload ---
+    const STORAGE_KEY = 'my_number_flow_state_v1';
+    let state = {
+      usedCount: 0,        // how many numbers have been provided to the user
+      index: 0,            // next index into AVAILABLE_NUMBERS
+      nextPromptAfter: randomBetween(2,3) // show prompt after this many adds
+    };
+
+    // Initialize from localStorage if present
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      try { Object.assign(state, JSON.parse(saved)); } catch(e){ /* ignore */ }
+    }
+
+    // UI refs
+    const numInput = document.getElementById('numInput');
+    const addBtn = document.getElementById('addBtn');
+    const resetBtn = document.getElementById('resetBtn');
+    const numbersList = document.getElementById('numbersList');
+    const progressEl = document.getElementById('progress');
+    const totalEl = document.getElementById('total');
+    const modalBackdrop = document.getElementById('modalBackdrop');
+    const joinedBtn = document.getElementById('joinedBtn');
+    const joinLink = document.getElementById('joinLink');
+
+    joinLink.href = TELEGRAM_URL;
+
+    // Helpers
+    function saveState() { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+    function randomBetween(a,b) { return Math.floor(Math.random()*(b - a + 1)) + a; }
+
+    function renderList() {
+      numbersList.innerHTML = '';
+      for (let i = 0; i < state.usedCount; i++) {
+        const idx = i; // which number index was shown (0-based)
+        const div = document.createElement('div');
+        div.className = 'number-item';
+        div.innerText = `#${i+1}: ${AVAILABLE_NUMBERS[i] || '(no more numbers)'}`;
+        numbersList.appendChild(div);
+      }
+      progressEl.innerText = state.usedCount;
+      totalEl.innerText = AVAILABLE_NUMBERS.length;
+    }
+
+    function showModal() {
+      modalBackdrop.style.display = 'flex';
+    }
+    function hideModal() {
+      modalBackdrop.style.display = 'none';
+    }
+
+    // Add number logic
+    function addNumber() {
+      // If no more numbers, show message
+      if (state.index >= AVAILABLE_NUMBERS.length) {
+        alert('No more numbers available.');
+        return;
+      }
+
+      // If we've hit the prompt threshold, show the modal and block until user confirms
+      if (state.usedCount >= 1 && state.usedCount % state.nextPromptAfter === 0) {
+        // Show modal instead of giving the next number
+        showModal();
+        return;
+      }
+
+      // Deliver next number
+      deliverNextNumber();
+    }
+
+    function deliverNextNumber() {
+      if (state.index >= AVAILABLE_NUMBERS.length) {
+        alert('No more numbers available.');
+        return;
+      }
+      // Simulate "giving" the number by incrementing counters and rendering
+      state.usedCount += 1;
+      state.index += 1;
+      // If we delivered up to the prompt threshold, set next threshold randomly (2-3)
+      if (state.usedCount % state.nextPromptAfter === 0) {
+        // next time we will show prompt after new random interval
+        state.nextPromptAfter = randomBetween(2,3);
+      }
+      saveState();
+      renderList();
+    }
+
+    // Button events
+    addBtn.addEventListener('click', () => {
+      // optional: validate input if you want to accept user-supplied numbers
+      // In this sample we ignore numInput and return list numbers
+      addNumber();
+    });
+
+    // "I joined / Continue" — user confirms (we can't verify actual join)
+    joinedBtn.addEventListener('click', () => {
+      hideModal();
+      // After user clicks, deliver next number
+      deliverNextNumber();
+    });
+
+    // Reset for testing
+    resetBtn.addEventListener('click', () => {
+      if (!confirm('Reset progress?')) return;
+      state = { usedCount: 0, index: 0, nextPromptAfter: randomBetween(2,3) };
+      saveState();
+      renderList();
+      hideModal();
+    });
+
+    // initial render
+    renderList();
+  </script>
 </body>
 </html>
