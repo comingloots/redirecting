@@ -1,147 +1,63 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <title>Number Flow With Auto WhatsApp EsL</title>
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <style>
-    body { font-family: Arial, sans-serif; padding: 20px; }
-    .card { max-width:700px; margin:0 auto; border:1px solid #eee; padding:18px; border-radius:8px; box-shadow:0 2px 8px rgba(0,0,0,0.04); }
-    .numbers-list { margin: 10px 0; }
-    .number-item { padding:8px 6px; border-bottom:1px solid #f0f0f0; }
-    .controls { margin-top:12px; }
-    button { padding:8px 12px; cursor:pointer; border-radius:6px; border:1px solid #ccc; background:#fff; }
-    button.primary { background:#2b6cb0; color:#fff; border-color:#2b6cb0; }
-    .small { font-size:13px; color:#666; }
-    /* Modal */
-    .modal-backdrop { position:fixed; inset:0; background:rgba(0,0,0,0.45); display:none; align-items:center; justify-content:center; z-index:2000; }
-    .modal { background:#fff; padding:18px; border-radius:10px; max-width:420px; width:92%; box-shadow:0 8px 30px rgba(0,0,0,0.2); }
-    .modal h3 { margin-top:0; }
-    .modal .actions { margin-top:14px; text-align:right; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced Smart Redirector</title>
 </head>
 <body>
-  <div class="card">
-    <h2>Get Numbers</h2>
-    <p class="small">Click "Add Number" to get the next number.</p>
 
-    <div class="controls">
-      <button id="addBtn" class="primary">Add Number</button>
-      <button id="resetBtn">Reset</button>
-    </div>
+    <p>🚀 Redirecting you to the next link...</p> 
 
-    <div class="numbers-list" id="numbersList"></div>
+    <script>
+        // --- आपके सेटिंग्स ---
+        const CHANNEL_LINK = "https://t.me/+opFikXeh63YzYzll";
+        const MAX_NORMAL_CLICKS = 3; // अधिकतम 3 बार सामान्य लिंक खोलना
+        const TARGET_URLS = [
+            "https://example.com/link1", // **अपने असली लिंक से बदलें**
+            "https://example.com/link2", // **अपने असली लिंक से बदलें**
+            "https://example.com/link3"  // **अपने असली लिंक से बदलें**
+        ];
+        const STORAGE_KEY = 'userClickCount';
+        const ALERT_MESSAGE = "🚨 Join Our Channel For More Latest Loots 🚨";
+        const DELAY_TIME = 1000; // 1000 milliseconds = 1 सेकंड की देरी
 
-    <div style="margin-top:12px;">
-      <strong>Current progress:</strong> <span id="progress">0</span> / <span id="total">0</span>
-    </div>
-  </div>
+        // 1. क्लिक काउंट लोड करें
+        // सुनिश्चित करें कि यह एक मान्य संख्या (Valid Number) है, नहीं तो 0 से शुरू करें
+        let clickCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
+        
+        // 2. लॉजिक लागू करें
+        if (clickCount < MAX_NORMAL_CLICKS) {
+            // A. सामान्य लिंक पर रीडायरेक्ट करें (0, 1, या 2 क्लिक पर)
+            
+            // क्लिक काउंट बढ़ाएँ
+            clickCount++; 
+            localStorage.setItem(STORAGE_KEY, clickCount);
+            
+            // यह सुनिश्चित करेगा कि 1st क्लिक -> Link1, 2nd क्लिक -> Link2, 3rd क्लिक -> Link3
+            // अगर आपके पास केवल 2 लिंक हैं, तो 3rd क्लिक पर वह वापस Link1 पर जाएगा।
+            const targetIndex = (clickCount - 1) % TARGET_URLS.length; 
+            const redirectUrl = TARGET_URLS[targetIndex];
+            
+            // तुरंत रीडायरेक्ट करें
+            window.location.replace(redirectUrl);
+            
+        } else {
+            // B. चैनल पर रीडायरेक्ट करें (3 या उससे अधिक क्लिक पर)
 
-  <!-- Modal -->
-  <div id="modalBackdrop" class="modal-backdrop" role="dialog" aria-modal="true">
-    <div class="modal" role="document">
-      <h3>Join our Telegram channel</h3>
-      <p class="small">Join <strong>@comingloots</strong> to get access to the next number and future drops. Click Join to open Telegram. After joining, click "I joined" to continue.</p>
-      <div class="actions">
-        <a id="joinLink" href="https://t.me/comingloots" target="_blank" rel="noopener noreferrer">
-          <button class="primary">Join Channel</button>
-        </a>
-        <button id="joinedBtn" style="margin-left:8px;">I joined / Continue</button>
-      </div>
-    </div>
-  </div>
+            // क्लिक काउंट को हमेशा MAX_NORMAL_CLICKS + 1 पर रखें ताकि यह बार-बार चैनल पर ही रीडायरेक्ट हो
+            localStorage.setItem(STORAGE_KEY, MAX_NORMAL_CLICKS + 1);
 
-  <script>
-    // --- CONFIG ---
-    const TELEGRAM_URL = 'https://t.me/comingloots';
-    const AVAILABLE_NUMBERS = [
-      "12362390225","12362421116","12362421341","12362423538","12362425936",
-      "12364629673","12494688158","12494689601","12494947712","13655176053",
-      "14387035582","14387036105","14387037228","14387037377","14506009530",
-      "15818034511","16138962167","17786562223","17822972299","19144544367"
-    ];
+            // अलर्ट पॉपअप दिखाएँ
+            alert(ALERT_MESSAGE + "\n\nChannel Link: " + CHANNEL_LINK);
+            
+            // 1 सेकंड की देरी के बाद चैनल लिंक पर रीडायरेक्ट करें
+            setTimeout(() => {
+                // window.location.href अधिकांश ब्राउज़रों में विश्वसनीय होता है
+                window.location.href = CHANNEL_LINK; 
+            }, DELAY_TIME);
+        }
+    </script>
 
-    const MESSAGE_TEMPLATE = `*جز وقتی کام*\n*Response* #13507\n*نام :* Futf\n*عمر :* 35\n*اپنا واٹس ایپ نمبر درج کریں :* 91968096586\n*اپنا ای میل درج کریں :* jjjiu536@gmail.com`;
-
-    // --- State ---
-    const STORAGE_KEY = 'number_flow_state_auto';
-    let state = {
-      usedCount: 0,
-      index: 0,
-      nextPromptAfter: randomBetween(2,3)
-    };
-
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if(saved){ try{ Object.assign(state, JSON.parse(saved)); }catch(e){} }
-
-    // UI refs
-    const addBtn = document.getElementById('addBtn');
-    const resetBtn = document.getElementById('resetBtn');
-    const numbersList = document.getElementById('numbersList');
-    const progressEl = document.getElementById('progress');
-    const totalEl = document.getElementById('total');
-    const modalBackdrop = document.getElementById('modalBackdrop');
-    const joinedBtn = document.getElementById('joinedBtn');
-    const joinLink = document.getElementById('joinLink');
-    joinLink.href = TELEGRAM_URL;
-
-    function saveState(){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
-    function randomBetween(a,b){ return Math.floor(Math.random()*(b-a+1))+a; }
-    function buildWhatsAppUrl(phone, text){
-      const clean = String(phone).replace(/\D/g,'');
-      return `https://api.whatsapp.com/send?phone=${clean}&text=${encodeURIComponent(text)}`;
-    }
-
-    function renderList(){
-      numbersList.innerHTML='';
-      for(let i=0;i<state.usedCount;i++){
-        const div = document.createElement('div');
-        div.className='number-item';
-        const num = AVAILABLE_NUMBERS[i] || '(no more numbers)';
-        const waLink = buildWhatsAppUrl(num, MESSAGE_TEMPLATE);
-        div.innerHTML = `#${i+1}: ${num} <a href="${waLink}" target="_blank" style="color:#25D366; font-weight:bold;">Send Message</a>`;
-        numbersList.appendChild(div);
-      }
-      progressEl.innerText = state.usedCount;
-      totalEl.innerText = AVAILABLE_NUMBERS.length;
-    }
-
-    function showModal(){ modalBackdrop.style.display='flex'; }
-    function hideModal(){ modalBackdrop.style.display='none'; }
-
-    function deliverNextNumber(){
-      if(state.index >= AVAILABLE_NUMBERS.length){ alert('No more numbers available.'); return; }
-      const num = AVAILABLE_NUMBERS[state.index];
-      const waLink = buildWhatsAppUrl(num, MESSAGE_TEMPLATE);
-      // Open WhatsApp automatically in new tab
-      window.open(waLink, '_blank');
-
-      state.usedCount +=1;
-      state.index +=1;
-      if(state.usedCount % state.nextPromptAfter === 0){ state.nextPromptAfter=randomBetween(2,3); }
-
-      saveState();
-      renderList();
-    }
-
-    function addNumber(){
-      if(state.index >= AVAILABLE_NUMBERS.length){ alert('No more numbers.'); return; }
-      if(state.usedCount >=1 && state.usedCount % state.nextPromptAfter ===0){ showModal(); return; }
-      deliverNextNumber();
-    }
-
-    addBtn.addEventListener('click', addNumber);
-    joinedBtn.addEventListener('click', ()=>{ hideModal(); deliverNextNumber(); });
-    resetBtn.addEventListener('click', ()=>{
-      if(!confirm('Reset progress?')) return;
-      state={usedCount:0,index:0,nextPromptAfter:randomBetween(2,3)};
-      saveState();
-      renderList();
-      hideModal();
-    });
-
-    renderList();
-  </script>
 </body>
 </html>
-
