@@ -1,65 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vita Marie Campaign</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vita Marie Campaign</title>
 </head>
 <body>
 
-    <p>🚀 Redirecting you to the next link...</p> 
+  <p>🚀 Redirecting you to the link...</p>
 
-    <script>
-        // --- आपके सेटिंग्स ---
-        const CHANNEL_LINK = "https://t.me/+opFikXeh63YzYzll";
-        const MAX_NORMAL_CLICKS = 3; // अधिकतम 3 बार सामान्य लिंक खोलना
-        const TARGET_URLS = [
-            "https://qrco.de/bg6qJW", // **अपने असली लिंक से बदलें**
-            "https://qrco.de/bg6qJW", // **अपने असली लिंक से बदलें**
-            "https://qrco.de/bg6qJW"  // **अपने असली लिंक से बदलें**
-        ];
-        const STORAGE_KEY = 'userClickCount';
-        const ALERT_MESSAGE = "🚨 Join Our Channel For More Latest Loots 🚨";
-        const DELAY_TIME = 1000; // 1000 milliseconds = 1 सेकंड की देरी
+  <script>
+    // --- सेटिंग्स ---
+    const CHANNEL_LINK = "https://t.me/+opFikXeh63YzYzll";
+    const MAX_NORMAL_CLICKS = 2;
+    const TARGET_URLS = [
+      "https://qrco.de/bg6qJW",
+      "https://qrco.de/bg6qJW",
+      "https://qrco.de/bg6qJW"
+    ];
+    const STORAGE_KEY = 'userClickCount';
+    const ALERT_MESSAGE = "🚨 Join Our *Official Telegram Channel* For More *Latest Loots!* 🚨";
+    const DELAY_TIME = 1000;
 
-        // 1. क्लिक काउंट लोड करें
-        // सुनिश्चित करें कि यह एक मान्य संख्या (Valid Number) है, नहीं तो 0 से शुरू करें
-        let clickCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
-        
-        // 2. लॉजिक लागू करें
-        if (clickCount < MAX_NORMAL_CLICKS) {
-            // A. सामान्य लिंक पर रीडायरेक्ट करें (0, 1, या 2 क्लिक पर)
-            
-            // क्लिक काउंट बढ़ाएँ
-            clickCount++; 
-            localStorage.setItem(STORAGE_KEY, clickCount);
-            
-            // यह सुनिश्चित करेगा कि 1st क्लिक -> Link1, 2nd क्लिक -> Link2, 3rd क्लिक -> Link3
-            // अगर आपके पास केवल 2 लिंक हैं, तो 3rd क्लिक पर वह वापस Link1 पर जाएगा।
-            const targetIndex = (clickCount - 1) % TARGET_URLS.length; 
-            const redirectUrl = TARGET_URLS[targetIndex];
-            
-            // तुरंत रीडायरेक्ट करें
-            window.location.replace(redirectUrl);
-            
-        } else {
-            // B. चैनल पर रीडायरेक्ट करें (3 या उससे अधिक क्लिक पर)
+    // 1. क्लिक काउंट लोड करें
+    let clickCount = parseInt(localStorage.getItem(STORAGE_KEY) || '0', 10);
 
-            // क्लिक काउंट को हमेशा MAX_NORMAL_CLICKS + 1 पर रखें ताकि यह बार-बार चैनल पर ही रीडायरेक्ट हो
-            localStorage.setItem(STORAGE_KEY, MAX_NORMAL_CLICKS + 1);
+    // 2. लॉजिक लागू करें
+    if (clickCount < MAX_NORMAL_CLICKS) {
+      clickCount++;
+      localStorage.setItem(STORAGE_KEY, clickCount);
 
-            // अलर्ट पॉपअप दिखाएँ
-            alert(ALERT_MESSAGE + "\n\nChannel Link: " + CHANNEL_LINK);
-            
-            // 1 सेकंड की देरी के बाद चैनल लिंक पर रीडायरेक्ट करें
-            setTimeout(() => {
-                // window.location.href अधिकांश ब्राउज़रों में विश्वसनीय होता है
-                window.location.href = CHANNEL_LINK; 
-            }, DELAY_TIME);
-        }
-    </script>
+      const targetIndex = (clickCount - 1) % TARGET_URLS.length;
+      const redirectUrl = TARGET_URLS[targetIndex];
+
+      window.location.replace(redirectUrl);
+
+    } else {
+      // क्लिक काउंट को फिक्स करें
+      localStorage.setItem(STORAGE_KEY, MAX_NORMAL_CLICKS + 1);
+
+      // अलर्ट में बोल्ड शब्द दिखाने के लिए basic HTML ट्रिक
+      const alertBox = document.createElement("div");
+      alertBox.innerHTML = `
+        <div style="position:fixed;top:0;left:0;width:100%;height:100%;
+                    background:rgba(0,0,0,0.6);display:flex;
+                    align-items:center;justify-content:center;z-index:9999;">
+          <div style="background:white;padding:20px;border-radius:12px;
+                      max-width:90%;text-align:center;font-family:sans-serif;">
+            <p style="font-size:18px;">🚨 <b>Join Our Official Telegram Channel</b> 🚨</p>
+            <p style="font-size:16px;">For <b>Latest Loots & Updates!</b></p>
+            <button id="goBtn" style="margin-top:10px;padding:8px 16px;
+                    background:#0088cc;color:white;border:none;
+                    border-radius:8px;cursor:pointer;">Join Now</button>
+          </div>
+        </div>`;
+      document.body.appendChild(alertBox);
+
+      document.getElementById("goBtn").addEventListener("click", () => {
+        window.location.href = CHANNEL_LINK;
+      });
+
+      // 1 सेकंड बाद भी auto redirect
+      setTimeout(() => {
+        window.location.href = CHANNEL_LINK;
+      }, DELAY_TIME);
+    }
+  </script>
 
 </body>
 </html>
-
-
