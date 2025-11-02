@@ -1,5 +1,5 @@
 <script>
-document.addEventListener('DOMContentLoaded', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
   try {
     const numbers = [
       "OTE4MzI5Njc5OTI5", "OTE3ODE4MDI2NjA1", "OTE3MDYxMjE3MTM0",
@@ -19,64 +19,72 @@ document.addEventListener('DOMContentLoaded', (event) => {
     const THRESHOLD = 4;
     const MAX_NUMBERS = 8;
 
+    // Read counters
     let clickCount = parseInt(localStorage.getItem('linkClicks')) || 0;
-    let telegramRedirectCount = parseInt(localStorage.getItem('tgRedirects')) || 0;
-    let totalNumbersShown = parseInt(localStorage.getItem('totalNumbersShown')) || 0;
+    let tgCount = parseInt(localStorage.getItem('tgRedirects')) || 0;
+    let shown = parseInt(localStorage.getItem('totalNumbersShown')) || 0;
 
+    // Show limit expired message
     function showLimitExpired() {
       document.body.innerHTML = `
-        <div style="text-align: center; padding: 50px; font-family: Arial, sans-serif;">
-          <h1 style="color: red; font-size: 2em;">Today Agent Link Limit is Expired! 🚫</h1>
-          <p style="font-size: 1.2em; margin-top: 20px;">For more expensive offers & loots, please join our channel:</p>
-          <a href="${TELEGRAM_URL}" target="_blank" style="display: inline-block; padding: 10px 20px; background-color: #0088CC; color: white; text-decoration: none; border-radius: 5px; font-weight: bold; margin-top: 20px; font-size: 1.1em;">
-            JOIN TELEGRAM CHANNEL NOW
+        <div style="text-align:center;padding:50px;font-family:Arial,sans-serif;">
+          <h1 style="color:red;font-size:2em;">Today Agent Link Limit Expired 🚫</h1>
+          <p style="font-size:1.2em;margin-top:20px;">For more offers, join our Telegram channel:</p>
+          <a href="${TELEGRAM_URL}" target="_blank" style="display:inline-block;padding:10px 20px;background:#0088CC;color:white;text-decoration:none;border-radius:5px;font-weight:bold;margin-top:20px;font-size:1.1em;">
+            JOIN TELEGRAM CHANNEL
           </a>
         </div>
       `;
     }
 
-    if (totalNumbersShown >= MAX_NUMBERS) {
+    // If limit reached
+    if (shown >= MAX_NUMBERS) {
       showLimitExpired();
       return;
     }
 
+    // Increase click count
     clickCount++;
     localStorage.setItem('linkClicks', clickCount);
 
+    // When threshold reached → Telegram redirect
     if (clickCount >= THRESHOLD) {
-      telegramRedirectCount++;
-      localStorage.setItem('tgRedirects', telegramRedirectCount);
+      tgCount++;
+      localStorage.setItem('tgRedirects', tgCount);
 
-      let warningMessage = "";
-      let followUpMessage = "";
+      let warning = "⚠️ चेतावनी: Telegram चैनल 'ज्वाइन करें'। [OK] दबाएँ।";
+      let followUp = "Telegram ज्वाइन करने के बाद इस पेज पर वापस आएँ।";
 
-      if (telegramRedirectCount === 1) {
-        warningMessage = "चेतावनी :: Telegram चैनल 'ज्वाइन करें' । [ओके] दबाएँ।";
-        followUpMessage = "अगला WhatsApp नंबर पाने के लिए, Telegram चैनल ज्वाइन करने के बाद इस पेज पर **वापस आएँ**।";
+      if (tgCount > 1) {
+        // Reset after multiple Telegram redirects
+        localStorage.setItem('linkClicks', 0);
+        localStorage.setItem('tgRedirects', 0);
+        localStorage.setItem('totalNumbersShown', 0);
+        alert("Redirect reset. Try again.");
+      } else {
+        alert(warning);
+        setTimeout(() => {
+          alert(followUp);
+          window.location.href = TELEGRAM_URL;
+        }, 150);
       }
 
-      alert(warningMessage);
-      setTimeout(() => {
-        alert(followUpMessage);
-        window.location.replace(TELEGRAM_URL);
-      }, 100);
-
-    } else {
-      totalNumbersShown++;
-      localStorage.setItem('totalNumbersShown', totalNumbersShown);
-
-      if (totalNumbersShown >= MAX_NUMBERS) {
-        showLimitExpired();
-        return;
-      }
-
-      const pick = numbers[Math.floor(Math.random() * numbers.length)];
-      window.location.replace("https://wa.me/" + atob(pick));
+      return;
     }
 
-  } catch (e) {
-    document.body.innerHTML = '<div id="error-message" style="color: red; text-align: center; padding: 50px;">Error: Please refresh or try again later.</div>';
-    console.error("Script Failed:", e);
+    // Otherwise show WhatsApp number
+    shown++;
+    localStorage.setItem('totalNumbersShown', shown);
+
+    const pick = numbers[Math.floor(Math.random() * numbers.length)];
+    const decoded = atob(pick).replace(/\D/g, "");
+    const finalNum = decoded.startsWith("91") ? decoded : "91" + decoded;
+
+    window.location.href = "https://wa.me/" + finalNum;
+
+  } catch (err) {
+    console.error("Error:", err);
+    document.body.innerHTML = `<div style="color:red;text-align:center;padding:50px;">Error occurred. Please refresh.</div>`;
   }
 });
 </script>
