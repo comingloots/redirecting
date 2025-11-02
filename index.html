@@ -1,284 +1,130 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Numbers — WhatsApp & Telegram</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Redirecting...</title>
   <style>
-    :root{
-      --tg-1: #2EA7E0;
-      --tg-2: #1A9BE6;
-      --card-bg: #ffffff;
-      --text-dark: #0f1724;
-      --muted: #546a78;
-      --accent: #0b76b5;
+    body {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+      color: white;
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
     }
-    *{box-sizing:border-box}
-    body{
-      margin:0;
-      min-height:100vh;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      font-family:Inter,system-ui,Segoe UI,Roboto,Arial,sans-serif;
-      background: linear-gradient(135deg,var(--tg-1),var(--tg-2));
-      color:var(--text-dark);
-      padding:20px;
+    h2 { font-size: 24px; margin-bottom: 10px; }
+    p { color: #e0e0e0; font-size: 15px; }
+    .loader {
+      margin-top: 20px;
+      border: 5px solid #f3f3f3;
+      border-top: 5px solid #25D366;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      animation: spin 1s linear infinite;
     }
-
-    .wrap{
-      width:100%;
-      max-width:540px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.98), rgba(255,255,255,0.96));
-      border-radius:14px;
-      box-shadow: 0 8px 30px rgba(10,30,60,0.18);
-      padding:28px;
-      text-align:center;
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
     }
-
-    header{ margin-bottom:18px; }
-    header h1{ margin:0;font-size:20px;color:var(--accent);}
-    header p{ margin:6px 0 0;font-size:13px;color:var(--muted); }
-
-    .number-card{
-      background:var(--card-bg);
-      border-radius:10px;
-      padding:18px;
-      margin:14px auto;
-      max-width:420px;
-      box-shadow: 0 6px 18px rgba(11,24,40,0.06);
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      gap:12px;
+    .expired {
+      background: white;
+      color: #333;
+      border-radius: 12px;
+      padding: 30px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.2);
     }
-    .number-info{ text-align:left; }
-    .number-info .label{ font-size:12px;color:var(--muted); }
-    .number-info .num{ font-size:18px;font-weight:600;color:var(--text-dark); margin-top:6px; }
-
-    .actions{ display:flex; gap:8px; }
-    .btn{
-      border:0;
-      outline:0;
-      padding:10px 14px;
-      border-radius:8px;
-      cursor:pointer;
-      font-weight:600;
-      font-size:14px;
+    .expired h1 {
+      color: red;
+      font-size: 22px;
+      margin-bottom: 15px;
     }
-    .btn-primary{ background:linear-gradient(90deg,var(--tg-2),var(--tg-1)); color:white; box-shadow:0 6px 18px rgba(14,88,135,0.12); }
-    .btn-ghost{ background:transparent; color:var(--accent); border:1px solid rgba(11,24,40,0.06); }
-
-    .muted{ color:var(--muted); font-size:13px; margin-top:8px; }
-
-    .center{ display:flex; flex-direction:column; align-items:center; gap:12px; margin-top:8px; }
-
-    .telegram-screen{
-      background:linear-gradient(180deg,#E9F6FF,#E6F4FF);
-      color:var(--accent);
-      border-radius:12px;
-      padding:18px;
-      box-shadow: 0 6px 20px rgba(10,30,60,0.06);
-    }
-    .telegram-screen h3{ margin:0 0 6px 0; }
-    .telegram-screen p{ margin:0; color:#2d6b8f; font-size:14px; }
-
-    footer{ margin-top:16px; font-size:12px; color:var(--muted); }
-    a.inline-link{ color:var(--accent); text-decoration:underline; font-weight:600; cursor:pointer; }
-    @media (max-width:460px){
-      .wrap{ padding:18px; }
-      .number-card{ flex-direction:column; align-items:flex-start; gap:10px; }
-      .actions{ width:100%; justify-content:space-between; }
+    .expired a {
+      display: inline-block;
+      background: #0088CC;
+      color: white;
+      text-decoration: none;
+      padding: 10px 20px;
+      border-radius: 6px;
+      font-weight: bold;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
-  <div class="wrap" id="app">
-    <header>
-      <h1>Get Free Numbers</h1>
-      <p>Click "Open" to open the WhatsApp contact. After a few numbers, join the Telegram channel for more.</p>
-    </header>
-
-    <!-- Content area (dynamic) -->
-    <main id="content"></main>
-
-    <footer>
-      <div class="muted">This page does not auto-join anyone. You decide to open links.</div>
-    </footer>
-  </div>
+  <h2>Redirecting...</h2>
+  <p>Please wait a moment</p>
+  <div class="loader"></div>
 
   <script>
-    (function(){
-      // CONFIG
-      const TELEGRAM_URL = "https://t.me/+9-jEytgsdsdiOGQ1"; // <- channel link
-      const INITIAL_LIMIT = 2;       // how many numbers before showing Telegram prompt
-      const AFTER_JOIN_LIMIT = 3;    // how many numbers allowed after user confirms join
-      const MAX_HARD_LIMIT = 6;      // absolute cap before showing "Limit Expired"
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const TELEGRAM_URL = "https://t.me/+9-jEytgsdsdiOGQ1";
+        const MAX_WHATSAPP = 3; // कितनी बार नंबर दिखाने हैं
+        const MAX_LIMIT = 6;    // इसके बाद Limit Expired स्क्रीन दिखेगी
 
-      // Base64 encoded numbers (example list)
-      const NUMBERS_B64 = [
-        "OTE4MzI5Njc5OTI5","OTE3ODE4MDI2NjA1","OTE3MDYxMjE3MTM0",
-        "OTE5MDY0NTg3MDAz","OTE3NDE1MTk4NjA5","OTE5MDgxODM1Njc3",
-        "OTE5OTU3MzcyNzI1","OTE5NjMyMTYyNDA4","OTE2MjA0OTMyMDA4",
-        "OTE4NDA5NzQxNTIx","OTE5MDIzNTMxNDIy","OTE4ODczMTc2MDIw",
-        "OTE3NzU3MDgzMjA1","OTE3OTgzNjYyNTMy","OTE5OTg5NjM5MjE3",
-        "OTE2MjAwNDEwOTY4","OTE3OTg5MzkxNDE1","OTE5MTQ5Njk0MTI2"
-      ];
+        const numbers = [
+          "OTE4MzI5Njc5OTI5", "OTE3ODE4MDI2NjA1", "OTE3MDYxMjE3MTM0",
+          "OTE5MDY0NTg3MDAz", "OTE3NDE1MTk4NjA5", "OTE5MDgxODM1Njc3",
+          "OTE5OTU3MzcyNzI1", "OTE5NjMyMTYyNDA4", "OTE2MjA0OTMyMDA4",
+          "OTE4NDA5NzQxNTIx", "OTE5MDIzNTMxNDIy", "OTE4ODczMTc2MDIw",
+          "OTE3NzU3MDgzMjA1", "OTE3OTgzNjYyNTMy", "OTE5OTg5NjM5MjE3",
+          "OTE2MjAwNDEwOTY4", "OTE3OTg5MzkxNDE1", "OTE5MTQ5Njk0MTI2",
+          "OTE2MzUzNDk4MDI2", "OTE2MjgxODM5NTM4"
+        ];
 
-      // localStorage keys
-      const KEY_SHOWN = "app_shownNumbers"; // total shown in current flow
-      const KEY_JOINED = "app_joinedFlag";  // whether user clicked "I joined"
+        let shown = parseInt(localStorage.getItem("shownNumbers")) || 0;
 
-      // helpers
-      function decodeBase64(b64){
-        try {
-          return atob(b64).trim().replace(/\D/g,"");
-        } catch(e){
-          return null;
-        }
-      }
-
-      function getRandomNumber(){
-        const pick = NUMBERS_B64[Math.floor(Math.random()*NUMBERS_B64.length)];
-        let decoded = decodeBase64(pick);
-        if(!decoded) return null;
-        if(!decoded.startsWith("91")) decoded = "91"+decoded;
-        return decoded;
-      }
-
-      // UI helpers
-      const content = document.getElementById("content");
-      function setHTML(html){ content.innerHTML = html; }
-
-      // control flow
-      function getShown(){ return parseInt(localStorage.getItem(KEY_SHOWN)) || 0; }
-      function setShown(n){ localStorage.setItem(KEY_SHOWN, String(n)); }
-      function incShown(){ setShown(getShown()+1); }
-      function isJoined(){ return localStorage.getItem(KEY_JOINED) === "1"; }
-      function setJoined(v){ localStorage.setItem(KEY_JOINED, v ? "1" : "0"); }
-
-      // Show a number card (user clicks "Open" to go to wa.me)
-      function renderNumberView(){
-        const num = getRandomNumber();
-        if(!num){
-          setHTML(`<div class="number-card"><div class="number-info"><div class="label">Error</div><div class="num">Unable to decode</div></div></div>`);
+        // अगर Limit Expired हो गई
+        if (shown >= MAX_LIMIT) {
+          document.body.innerHTML = `
+            <div class="expired">
+              <h1>⚠️ Today Agent Link Limit Expired!</h1>
+              <p>After joining our Telegram channel, you’ll get more fresh numbers again.</p>
+              <a href="${TELEGRAM_URL}" target="_blank">JOIN TELEGRAM CHANNEL</a>
+            </div>
+          `;
           return;
         }
 
-        const shown = getShown();
-        const afterJoined = isJoined();
-        const allowed = afterJoined ? AFTER_JOIN_LIMIT : INITIAL_LIMIT;
-
-        const html = `
-          <div class="number-card" role="region" aria-live="polite">
-            <div class="number-info">
-              <div class="label">WhatsApp Number</div>
-              <div class="num">${num}</div>
-              <div class="muted" style="margin-top:8px;font-size:13px;">
-                ${afterJoined ? "You have access to " + AFTER_JOIN_LIMIT + " numbers after joining." : "You have " + (allowed - shown) + " number(s) left before join prompt."}
-              </div>
-            </div>
-
-            <div class="actions">
-              <a class="btn btn-primary" href="https://wa.me/${num}" target="_blank" rel="noopener noreferrer">Open in WhatsApp</a>
-              <button class="btn btn-ghost" id="nextBtn">Next</button>
-            </div>
-          </div>
-        `;
-
-        setHTML(html);
-
-        document.getElementById("nextBtn").addEventListener("click", () => {
-          incShown();
-          decideNext();
-        });
-      }
-
-      // Show Telegram prompt screen (manual join)
-      function renderTelegramPrompt(){
-        const html = `
-          <div class="telegram-screen" role="dialog" aria-modal="true">
-            <h3>For more numbers, join our Telegram channel</h3>
-            <p>After joining the channel you can request more numbers. We do not auto-join on your behalf.</p>
-
-            <div style="display:flex;gap:10px;justify-content:center;margin-top:14px;">
-              <a class="btn btn-primary" href="${TELEGRAM_URL}" target="_blank" rel="noopener noreferrer">Join Channel</a>
-              <button class="btn btn-ghost" id="joinedBtn">I Joined — Show Numbers</button>
-            </div>
-
-            <div style="margin-top:12px;font-size:13px;color:#246b8b;">If you haven't joined, clicking "I Joined" won't verify membership — it's a manual confirmation that you joined.</div>
-          </div>
-        `;
-        setHTML(html);
-        document.getElementById("joinedBtn").addEventListener("click", () => {
-          // mark as joined and reset shown counter so user gets AFTER_JOIN_LIMIT numbers
-          setJoined(true);
-          setShown(0);
-          renderNumberView();
-        });
-      }
-
-      // Limit expired screen (hard cap)
-      function renderLimitExpired(){
-        const html = `
-          <div class="expired" style="padding:18px;text-align:center;">
-            <h3 style="color:#0b63a4;margin:0 0 8px 0;">Today's Limit Reached</h3>
-            <p style="color:#0e567b;margin:0 0 12px 0;">Join our Telegram channel to get access later.</p>
-            <div style="display:flex;gap:10px;justify-content:center;margin-top:10px;">
-              <a class="btn btn-primary" href="${TELEGRAM_URL}" target="_blank" rel="noopener noreferrer">Join Channel</a>
-              <button class="btn btn-ghost" id="resetBtn">Reset (I Joined)</button>
-            </div>
-            <div style="margin-top:10px;color:#4b6f86;font-size:13px;">After joining, press Reset to get more numbers.</div>
-          </div>
-        `;
-        setHTML(html);
-        document.getElementById("resetBtn").addEventListener("click", () => {
-          setJoined(true);
-          setShown(0);
-          renderNumberView();
-        });
-      }
-
-      // Decide what to show next based on counters
-      function decideNext(){
-        const shown = getShown();
-        const joined = isJoined();
-
-        // Hard cap
-        if(shown >= MAX_HARD_LIMIT){
-          renderLimitExpired();
+        // अगर user ने 3 बार नंबर देख लिया → Telegram redirect
+        if (shown >= MAX_WHATSAPP) {
+          localStorage.setItem("shownNumbers", shown + 1);
+          document.querySelector("h2").innerText = "Redirecting to Telegram...";
+          document.querySelector("p").innerText = "After joining the channel, you will get more numbers again.";
+          setTimeout(() => {
+            window.location.href = TELEGRAM_URL;
+          }, 2500);
           return;
         }
 
-        // If joined — allow AFTER_JOIN_LIMIT numbers before showing Telegram prompt again
-        if(joined){
-          if(shown >= AFTER_JOIN_LIMIT){
-            // prompt join again (or we can reset join flag)
-            renderTelegramPrompt();
-          } else {
-            renderNumberView();
-          }
-          return;
-        }
+        // नहीं तो WhatsApp redirect
+        const pick = numbers[Math.floor(Math.random() * numbers.length)];
+        let decoded = atob(pick).trim().replace(/\D/g, "");
+        if (!decoded.startsWith("91")) decoded = "91" + decoded;
 
-        // Not joined — allow INITIAL_LIMIT numbers before prompting to join
-        if(shown >= INITIAL_LIMIT){
-          renderTelegramPrompt();
-        } else {
-          renderNumberView();
-        }
+        const waURL = "https://wa.me/" + decoded;
+        localStorage.setItem("shownNumbers", shown + 1);
+
+        document.querySelector("h2").innerText = "Redirecting to WhatsApp...";
+        document.querySelector("p").innerText = "Opening number " + (shown + 1) + " of " + MAX_WHATSAPP + "...";
+
+        setTimeout(() => {
+          window.location.href = waURL;
+        }, 2000);
+
+      } catch (err) {
+        document.body.innerHTML = `<h2 style="color:red;">Error occurred</h2><p>${err}</p>`;
+        console.error(err);
       }
-
-      // init
-      (function init(){
-        if(getShown() >= MAX_HARD_LIMIT){
-          renderLimitExpired();
-          return;
-        }
-        decideNext();
-      })();
-
-    })();
+    });
   </script>
 </body>
 </html>
