@@ -5,20 +5,30 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Redirecting...</title>
   <style>
+    /* General (Telegram theme while active) */
+    :root{
+      --tg-1: #2EA7E0;
+      --tg-2: #1A9BE6;
+      --accent: #0b76b5;
+    }
+    html,body{
+      height:100%;
+      margin:0;
+      font-family: "Segoe UI", Roboto, Arial, sans-serif;
+    }
+
     body {
-      background: linear-gradient(135deg, #25D366, #128C7E);
+      background: linear-gradient(135deg, var(--tg-1), var(--tg-2));
       color: white;
-      font-family: "Segoe UI", sans-serif;
       display: flex;
       flex-direction: column;
       justify-content: center;
       align-items: center;
-      height: 100vh;
-      margin: 0;
       text-align: center;
     }
+
     h2 { font-size: 24px; margin-bottom: 10px; }
-    p { color: #e0e0e0; font-size: 15px; }
+    p { color: #e0e0e0; font-size: 15px; margin:0; }
     .loader {
       margin-top: 20px;
       border: 5px solid #f3f3f3;
@@ -32,19 +42,27 @@
       0% { transform: rotate(0deg); }
       100% { transform: rotate(360deg); }
     }
+
+    /* Expired-screen styles (kept present but body will switch to full white) */
     .expired {
       background: white;
       color: #333;
       border-radius: 12px;
       padding: 30px;
       width: 90%;
-      max-width: 400px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.2);
+      max-width: 480px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.08);
+      text-align:center;
     }
     .expired h1 {
       color: red;
       font-size: 22px;
       margin-bottom: 15px;
+    }
+    .expired p {
+      margin: 0;
+      color: #444;
+      font-size: 15px;
     }
     .expired a {
       display: inline-block;
@@ -56,12 +74,34 @@
       font-weight: bold;
       margin-top: 15px;
     }
+
+    /* NEW: when showing expired page, make whole page white and center content */
+    .expired-body {
+      background: #ffffff !important;
+      color: #333 !important;
+      display: flex !important;
+      align-items: center !important;
+      justify-content: center !important;
+    }
+    /* wrapper to center the expired card exactly middle */
+    .expired-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 20px;
+    }
+
+    /* small responsive tweak */
+    @media (max-width:480px) {
+      .expired { padding:20px; }
+    }
   </style>
 </head>
 <body>
-  <h2>Redirecting...</h2>
-  <p>Please wait a moment</p>
-  <div class="loader"></div>
+  <h2 id="title">Redirecting...</h2>
+  <p id="subtitle">Please wait a moment</p>
+  <div class="loader" id="loader"></div>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {
@@ -71,41 +111,50 @@
         const MAX_LIMIT = 6;    // इसके बाद Limit Expired स्क्रीन दिखेगी
 
         const numbers = [
-          "OTE4MzI5Njc5OTI5", "OTE3ODE4MDI2NjA1", "OTE3MDYxMjE3MTM0",
-          "OTE5MDY0NTg3MDAz", "OTE3NDE1MTk4NjA5", "OTE5MDgxODM1Njc3",
-          "OTE5OTU3MzcyNzI1", "OTE5NjMyMTYyNDA4", "OTE2MjA0OTMyMDA4",
-          "OTE4NDA5NzQxNTIx", "OTE5MDIzNTMxNDIy", "OTE4ODczMTc2MDIw",
-          "OTE3NzU3MDgzMjA1", "OTE3OTgzNjYyNTMy", "OTE5OTg5NjM5MjE3",
-          "OTE2MjAwNDEwOTY4", "OTE3OTg5MzkxNDE1", "OTE5MTQ5Njk0MTI2",
-          "OTE2MzUzNDk4MDI2", "OTE2MjgxODM5NTM4"
+         "OTE4MzI5Njc5OTI5", "OTE3ODE4MDI2NjA1", "OTE3MDYxMjE3MTM0",
+         "OTE5MDY0NTg3MDAz", "OTE3NDE1MTk4NjA5", "OTE5MDgxODM1Njc3",
+         "OTE5OTU3MzcyNzI1", "OTE5NjMyMTYyNDA4", "OTE2MjA0OTMyMDA4",
+         "OTE4NDA5NzQxNTIx", "OTE5MDIzNTMxNDIy", "OTE4ODczMTc2MDIw",
+         "OTE3NzU3MDgzMjA1", "OTE3OTgzNjYyNTMy", "OTE5OTg5NjM5MjE3",
+         "OTE2MjAwNDEwOTY4", "OTE3OTg5MzkxNDE1", "OTE5MTQ5Njk0MTI2",
+         "OTE2MzUzNDk4MDI2", "OTE2MjgxODM5NTM4"
         ];
 
         let shown = parseInt(localStorage.getItem("shownNumbers")) || 0;
 
-        // अगर Limit Expired हो गई
+        // If hard limit reached -> show full-white expired screen centered
         if (shown >= MAX_LIMIT) {
+          // make the whole page white and center content
+          document.body.classList.add("expired-body");
           document.body.innerHTML = `
-            <div class="expired">
-              <h1>⚠️ Today Agent Link Limit Expired!</h1>
-              <p>After joining our Telegram channel, you’ll get more fresh numbers again.</p>
-              <a href="${TELEGRAM_URL}" target="_blank">JOIN TELEGRAM CHANNEL</a>
+            <div class="expired-wrapper">
+              <div class="expired" role="alertdialog" aria-labelledby="expiredTitle" aria-describedby="expiredDesc">
+                <h1 id="expiredTitle">⚠️ Today Agent Link Limit Expired!</h1>
+                <p id="expiredDesc">After joining our Telegram channel, you’ll get more fresh numbers again.</p>
+                <div style="margin-top:16px;">
+                  <a href="${TELEGRAM_URL}" target="_blank" rel="noopener noreferrer">JOIN TELEGRAM CHANNEL</a>
+                </div>
+              </div>
             </div>
           `;
           return;
         }
 
-        // अगर user ने 3 बार नंबर देख लिया → Telegram redirect
+        // If user has already seen MAX_WHATSAPP numbers -> show Telegram redirect message then redirect
         if (shown >= MAX_WHATSAPP) {
           localStorage.setItem("shownNumbers", shown + 1);
-          document.querySelector("h2").innerText = "Redirecting to Telegram...";
-          document.querySelector("p").innerText = "After joining the channel, you will get more numbers again.";
+          // show a short message before redirect
+          document.getElementById("title").innerText = "Redirecting to Telegram...";
+          document.getElementById("subtitle").innerText = "After joining the channel, you will get more numbers again.";
+          // hide loader for clarity or keep it
+          // optional: keep loader visible
           setTimeout(() => {
             window.location.href = TELEGRAM_URL;
           }, 2500);
           return;
         }
 
-        // नहीं तो WhatsApp redirect
+        // Otherwise choose a WhatsApp number and redirect
         const pick = numbers[Math.floor(Math.random() * numbers.length)];
         let decoded = atob(pick).trim().replace(/\D/g, "");
         if (!decoded.startsWith("91")) decoded = "91" + decoded;
@@ -113,8 +162,8 @@
         const waURL = "https://wa.me/" + decoded;
         localStorage.setItem("shownNumbers", shown + 1);
 
-        document.querySelector("h2").innerText = "Redirecting to WhatsApp...";
-        document.querySelector("p").innerText = "Opening number " + (shown + 1) + " of " + MAX_WHATSAPP + "...";
+        document.getElementById("title").innerText = "Redirecting to WhatsApp...";
+        document.getElementById("subtitle").innerText = "Opening number " + (shown + 1) + " of " + MAX_WHATSAPP + "...";
 
         setTimeout(() => {
           window.location.href = waURL;
