@@ -1,179 +1,171 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Redirecting...</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Assigning an agent — please wait</title>
+  <meta name="robots" content="noindex">
   <style>
-    /* General (Telegram theme while active) */
-    :root{
-      --tg-1: #2EA7E0;
-      --tg-2: #1A9BE6;
-      --accent: #0b76b5;
-    }
-    html,body{
-      height:100%;
-      margin:0;
-      font-family: "Segoe UI", Roboto, Arial, sans-serif;
-    }
-
     body {
-      background: linear-gradient(135deg, var(--tg-1), var(--tg-2));
-      color: white;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
-
-    h2 { font-size: 24px; margin-bottom: 10px; }
-    p { color: #e0e0e0; font-size: 15px; margin:0; }
-    .loader {
-      margin-top: 20px;
-      border: 5px solid #f3f3f3;
-      border-top: 5px solid #25D366;
-      border-radius: 50%;
-      width: 45px;
-      height: 45px;
-      animation: spin 1s linear infinite;
-    }
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
-    }
-
-    /* Expired-screen styles (kept present but body will switch to full white) */
-    .expired {
-      background: white;
-      color: #333;
-      border-radius: 12px;
-      padding: 30px;
-      width: 90%;
-      max-width: 480px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.08);
-      text-align:center;
-    }
-    .expired h1 {
-      color: red;
-      font-size: 22px;
-      margin-bottom: 15px;
-    }
-    .expired p {
       margin: 0;
-      color: #444;
-      font-size: 15px;
-    }
-    .expired a {
-      display: inline-block;
-      background: #0088CC;
-      color: white;
-      text-decoration: none;
-      padding: 10px 20px;
-      border-radius: 6px;
-      font-weight: bold;
-      margin-top: 15px;
-    }
-
-    /* NEW: when showing expired page, make whole page white and center content */
-    .expired-body {
-      background: #ffffff !important;
-      color: #333 !important;
-      display: flex !important;
-      align-items: center !important;
-      justify-content: center !important;
-    }
-    /* wrapper to center the expired card exactly middle */
-    .expired-wrapper {
-      width: 100%;
+      height: 100vh;
       display: flex;
       justify-content: center;
       align-items: center;
-      padding: 20px;
+      background: linear-gradient(135deg, #ecfdf5, #f0f9ff);
+      font-family: "Segoe UI", system-ui, sans-serif;
+      color: #0f172a;
+      overflow: hidden;
     }
-
-    /* small responsive tweak */
-    @media (max-width:480px) {
-      .expired { padding:20px; }
+    .card {
+      background: #fff;
+      border-radius: 16px;
+      padding: 32px;
+      width: 90%;
+      max-width: 420px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      text-align: center;
+      animation: fadeIn 0.8s ease;
     }
+    h1 { font-size: 1.1rem; margin-bottom: 6px; }
+    .small { color: #64748b; font-size: 13px; margin-top: 4px; }
+    .count {
+      font-size: 42px;
+      font-weight: 700;
+      margin: 14px 0;
+      color: #0f172a;
+      animation: pulse 1s infinite alternate;
+    }
+    .progress {
+      height: 10px;
+      width: 100%;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+      margin: 12px 0 8px;
+    }
+    .bar {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, #34d399, #06b6d4);
+      transition: width 0.3s ease;
+    }
+    button {
+      width: 100%;
+      border: none;
+      padding: 12px;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      margin-top: 10px;
+      transition: transform 0.15s ease;
+    }
+    button:hover:not([disabled]) { transform: scale(1.02); }
+    #manual { background: #0f172a; color: white; }
+    #manual[disabled] { opacity: 0.5; cursor: not-allowed; }
+    #telegram { background: #229ED9; color: white; }
+    @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.08); } }
+    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
-  <h2 id="title">Redirecting...</h2>
-  <p id="subtitle">Please wait a moment</p>
-  <div class="loader" id="loader"></div>
+  <div class="card">
+    <h1>Please wait — assigning an available WhatsApp agent</h1>
+    <p class="small">Don’t close this window while we connect you.</p>
 
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
+    <div class="count" id="count">30</div>
+    <div class="progress"><div class="bar" id="bar"></div></div>
+
+    <p id="status" class="small">You’ll be redirected automatically.</p>
+
+    <button id="manual" disabled>Redirect now</button>
+    <button id="telegram">Join Telegram Channel</button>
+
+    <p class="small" style="margin-top:10px">
+      If redirect fails, you’ll be taken to our Telegram channel.
+    </p>
+  </div>
+
+<script>
+(() => {
+  const encodedNumbers = [
+  "KzkxOTUxNTU5MTM4Ng==", "KzkxNjI2NDc3MzE1NQ==", "KzkxOTU1MzEzOTkxMA==",
+  "KzkxOTg0NTU0OTczNg==", "KzkxOTU1OTYyMTU5Mg==", "KzkxODc5NzI5OTU3Mw==",
+  "KzkxNzQ0NzUxMjQxNA==", "KzkxNzIwNTAxMDA2Mw==", "KzkxODg4NjgyNDU5OQ==",
+  "KzkxNzA2NTUyNjg2Nw==", "KzkxNzk5NzY5MTIyOQ==", "KzkxOTg3MjUyNTEwOQ==",
+  "KzkxNzAzMjQ2NDM0NA==", "KzkxOTc1NjM0MTA1NQ==", "KzkxOTk1OTY0MzU2NQ==",
+  "KzkxOTU5MTM4Ng==", "KzkxNjI2NDc3MzE1NQ==", "KzkxOTU1MzEzOTkxMA==",
+  "KzkxOTg0NTU0OTczNg==", "KzkxOTU1OTYyMTU5Mg==", "KzkxODc5NzI5OTU3Mw==",
+  "KzkxNzQ0NzUxMjQxNA==", "KzkxNzIwNTAxMDA2Mw==", "KzkxODg4NjgyNDU5OQ==",
+  "KzkxNzA2NTUyNjg2Nw==", "KzkxNzk5NzY5MTIyOQ==", "KzkxOTg3MjUyNTEwOQ==",
+  "KzkxNzAzMjQ2NDM0NA==", "KzkxOTc1NjM0MTA1NQ==", "KzkxOTk1OTY0MzU2NQ==",
+  "KzkxOTk1OTY0MzU2NQ==", "KzkxNzAzMjQ2NDM0NA==", "KzkxOTg3MjUyNTEwOQ==",
+  "KzkxNzA2NTUyNjg2Nw==", "KzkxODg4NjgyNDU5OQ==", "KzkxNzIwNTAxMDA2Mw==",
+  "KzkxNzQ0NzUxMjQxNA==", "KzkxODc5NzI5OTU3Mw==", "KzkxOTU1OTYyMTU5Mg==",
+  "KzkxOTg0NTU0OTczNg==", "KzkxOTU1MzEzOTkxMA==", "KzkxNjI2NDc3MzE1NQ==",
+  "KzkxOTUxNTU5MTM4Ng==", "KzkxODg4NjgyNDU5OQ=="
+];
+  const TELEGRAM_URL = "https://t.me/comingloots";
+  const TOTAL = 30;
+  let remaining = TOTAL;
+
+  const countEl = document.getElementById("count");
+  const barEl = document.getElementById("bar");
+  const statusEl = document.getElementById("status");
+  const manualBtn = document.getElementById("manual");
+  const telegramBtn = document.getElementById("telegram");
+
+  const decodeBase64 = s => {
+    try { return atob(s).replace(/\D+/g, ''); } catch { return ''; }
+  };
+
+  const numbers = encodedNumbers.map(decodeBase64).filter(Boolean);
+
+  const updateUI = () => {
+    countEl.textContent = remaining;
+    barEl.style.width = `${Math.round(((TOTAL - remaining) / TOTAL) * 100)}%`;
+  };
+
+  const redirect = () => {
+    if (!numbers.length) {
+      statusEl.textContent = "No agents available right now.";
+      return;
+    }
+    const pick = numbers[Math.floor(Math.random() * numbers.length)];
+    statusEl.textContent = "Connecting to available agent…";
+    setTimeout(() => {
       try {
-        const TELEGRAM_URL = "https://t.me/+9-jEytgsdsdiOGQ1";
-        const MAX_WHATSAPP = 3; // कितनी बार नंबर दिखाने हैं
-        const MAX_LIMIT = 6;    // इसके बाद Limit Expired स्क्रीन दिखेगी
-
-        const numbers = [
-         "OTE4MzI5Njc5OTI5", "OTE3ODE4MDI2NjA1", "OTE3MDYxMjE3MTM0",
-         "OTE5MDY0NTg3MDAz", "OTE3NDE1MTk4NjA5", "OTE5MDgxODM1Njc3",
-         "OTE5OTU3MzcyNzI1", "OTE5NjMyMTYyNDA4", "OTE2MjA0OTMyMDA4",
-         "OTE4NDA5NzQxNTIx", "OTE5MDIzNTMxNDIy", "OTE4ODczMTc2MDIw",
-         "OTE3NzU3MDgzMjA1", "OTE3OTgzNjYyNTMy", "OTE5OTg5NjM5MjE3",
-         "OTE2MjAwNDEwOTY4", "OTE3OTg5MzkxNDE1", "OTE5MTQ5Njk0MTI2",
-         "OTE2MzUzNDk4MDI2", "OTE2MjgxODM5NTM4"
-        ];
-
-        let shown = parseInt(localStorage.getItem("shownNumbers")) || 0;
-
-        // If hard limit reached -> show full-white expired screen centered
-        if (shown >= MAX_LIMIT) {
-          // make the whole page white and center content
-          document.body.classList.add("expired-body");
-          document.body.innerHTML = `
-            <div class="expired-wrapper">
-              <div class="expired" role="alertdialog" aria-labelledby="expiredTitle" aria-describedby="expiredDesc">
-                <h1 id="expiredTitle">⚠️ Today Agent Link Limit Expired!</h1>
-                <p id="expiredDesc">After joining our Telegram channel, you’ll get more fresh numbers again.</p>
-                <div style="margin-top:16px;">
-                  <a href="${TELEGRAM_URL}" target="_blank" rel="noopener noreferrer">JOIN TELEGRAM CHANNEL</a>
-                </div>
-              </div>
-            </div>
-          `;
-          return;
-        }
-
-        // If user has already seen MAX_WHATSAPP numbers -> show Telegram redirect message then redirect
-        if (shown >= MAX_WHATSAPP) {
-          localStorage.setItem("shownNumbers", shown + 1);
-          // show a short message before redirect
-          document.getElementById("title").innerText = "Redirecting to Telegram...";
-          document.getElementById("subtitle").innerText = "After joining the channel, you will get more numbers again.";
-          // hide loader for clarity or keep it
-          // optional: keep loader visible
-          setTimeout(() => {
-            window.location.href = TELEGRAM_URL;
-          }, 2500);
-          return;
-        }
-
-        // Otherwise choose a WhatsApp number and redirect
-        const pick = numbers[Math.floor(Math.random() * numbers.length)];
-        let decoded = atob(pick).trim().replace(/\D/g, "");
-        if (!decoded.startsWith("91")) decoded = "91" + decoded;
-
-        const waURL = "https://wa.me/" + decoded;
-        localStorage.setItem("shownNumbers", shown + 1);
-
-        document.getElementById("title").innerText = "Redirecting to WhatsApp...";
-        document.getElementById("subtitle").innerText = "Opening number " + (shown + 1) + " of " + MAX_WHATSAPP + "...";
-
-        setTimeout(() => {
-          window.location.href = waURL;
-        }, 2000);
-
-      } catch (err) {
-        document.body.innerHTML = `<h2 style="color:red;">Error occurred</h2><p>${err}</p>`;
-        console.error(err);
+        window.location.replace("https://wa.me/" + pick);
+        setTimeout(() => window.open(TELEGRAM_URL, "_blank"), 4000);
+      } catch {
+        window.open(TELEGRAM_URL, "_blank");
       }
-    });
-  </script>
+    }, 500);
+  };
+
+  telegramBtn.onclick = () => window.open(TELEGRAM_URL, "_blank");
+
+  manualBtn.onclick = () => {
+    remaining = 0;
+    clearInterval(timer);
+    manualBtn.disabled = true;
+    redirect();
+  };
+
+  updateUI();
+  const timer = setInterval(() => {
+    remaining--;
+    updateUI();
+    if (remaining <= 0) {
+      clearInterval(timer);
+      manualBtn.disabled = true;
+      redirect();
+    } else {
+      if (remaining <= 5) manualBtn.disabled = false;
+      statusEl.textContent = "Please wait — assigning agent…";
+    }
+  }, 1000);
+})();
+</script>
 </body>
 </html>
