@@ -1,171 +1,84 @@
-<!doctype html>
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Assigning an agent — please wait</title>
-  <meta name="robots" content="noindex">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title></title>
   <style>
-    body {
+    html, body {
       margin: 0;
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      background: linear-gradient(135deg, #ecfdf5, #f0f9ff);
-      font-family: "Segoe UI", system-ui, sans-serif;
-      color: #0f172a;
-      overflow: hidden;
-    }
-    .card {
+      padding: 0;
       background: #fff;
-      border-radius: 16px;
-      padding: 32px;
-      width: 90%;
-      max-width: 420px;
-      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
-      text-align: center;
-      animation: fadeIn 0.8s ease;
-    }
-    h1 { font-size: 1.1rem; margin-bottom: 6px; }
-    .small { color: #64748b; font-size: 13px; margin-top: 4px; }
-    .count {
-      font-size: 42px;
-      font-weight: 700;
-      margin: 14px 0;
-      color: #0f172a;
-      animation: pulse 1s infinite alternate;
-    }
-    .progress {
-      height: 10px;
-      width: 100%;
-      background: #e2e8f0;
-      border-radius: 999px;
-      overflow: hidden;
-      margin: 12px 0 8px;
-    }
-    .bar {
       height: 100%;
-      width: 0%;
-      background: linear-gradient(90deg, #34d399, #06b6d4);
-      transition: width 0.3s ease;
+      overflow: hidden;
     }
-    button {
-      width: 100%;
-      border: none;
-      padding: 12px;
-      border-radius: 8px;
-      font-size: 15px;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: transform 0.15s ease;
-    }
-    button:hover:not([disabled]) { transform: scale(1.02); }
-    #manual { background: #0f172a; color: white; }
-    #manual[disabled] { opacity: 0.5; cursor: not-allowed; }
-    #telegram { background: #229ED9; color: white; }
-    @keyframes pulse { from { transform: scale(1); } to { transform: scale(1.08); } }
-    @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   </style>
 </head>
 <body>
-  <div class="card">
-    <h1>Please wait — assigning an available WhatsApp agent</h1>
-    <p class="small">Don’t close this window while we connect you.</p>
-
-    <div class="count" id="count">30</div>
-    <div class="progress"><div class="bar" id="bar"></div></div>
-
-    <p id="status" class="small">You’ll be redirected automatically.</p>
-
-    <button id="manual" disabled>Redirect now</button>
-    <button id="telegram">Join Telegram Channel</button>
-
-    <p class="small" style="margin-top:10px">
-      If redirect fails, you’ll be taken to our Telegram channel.
-    </p>
-  </div>
-
-<script>
-(() => {
-  const encodedNumbers = [
-  "KzkxOTUxNTU5MTM4Ng==", "KzkxNjI2NDc3MzE1NQ==", "KzkxOTU1MzEzOTkxMA==",
-  "KzkxOTg0NTU0OTczNg==", "KzkxOTU1OTYyMTU5Mg==", "KzkxODc5NzI5OTU3Mw==",
-  "KzkxNzQ0NzUxMjQxNA==", "KzkxNzIwNTAxMDA2Mw==", "KzkxODg4NjgyNDU5OQ==",
-  "KzkxNzA2NTUyNjg2Nw==", "KzkxNzk5NzY5MTIyOQ==", "KzkxOTg3MjUyNTEwOQ==",
-  "KzkxNzAzMjQ2NDM0NA==", "KzkxOTc1NjM0MTA1NQ==", "KzkxOTk1OTY0MzU2NQ==",
-  "KzkxOTU5MTM4Ng==", "KzkxNjI2NDc3MzE1NQ==", "KzkxOTU1MzEzOTkxMA==",
-  "KzkxOTg0NTU0OTczNg==", "KzkxOTU1OTYyMTU5Mg==", "KzkxODc5NzI5OTU3Mw==",
-  "KzkxNzQ0NzUxMjQxNA==", "KzkxNzIwNTAxMDA2Mw==", "KzkxODg4NjgyNDU5OQ==",
-  "KzkxNzA2NTUyNjg2Nw==", "KzkxNzk5NzY5MTIyOQ==", "KzkxOTg3MjUyNTEwOQ==",
-  "KzkxNzAzMjQ2NDM0NA==", "KzkxOTc1NjM0MTA1NQ==", "KzkxOTk1OTY0MzU2NQ==",
-  "KzkxOTk1OTY0MzU2NQ==", "KzkxNzAzMjQ2NDM0NA==", "KzkxOTg3MjUyNTEwOQ==",
-  "KzkxNzA2NTUyNjg2Nw==", "KzkxODg4NjgyNDU5OQ==", "KzkxNzIwNTAxMDA2Mw==",
-  "KzkxNzQ0NzUxMjQxNA==", "KzkxODc5NzI5OTU3Mw==", "KzkxOTU1OTYyMTU5Mg==",
-  "KzkxOTg0NTU0OTczNg==", "KzkxOTU1MzEzOTkxMA==", "KzkxNjI2NDc3MzE1NQ==",
-  "KzkxOTUxNTU5MTM4Ng==", "KzkxODg4NjgyNDU5OQ=="
-];
-  const TELEGRAM_URL = "https://t.me/comingloots";
-  const TOTAL = 30;
-  let remaining = TOTAL;
-
-  const countEl = document.getElementById("count");
-  const barEl = document.getElementById("bar");
-  const statusEl = document.getElementById("status");
-  const manualBtn = document.getElementById("manual");
-  const telegramBtn = document.getElementById("telegram");
-
-  const decodeBase64 = s => {
-    try { return atob(s).replace(/\D+/g, ''); } catch { return ''; }
-  };
-
-  const numbers = encodedNumbers.map(decodeBase64).filter(Boolean);
-
-  const updateUI = () => {
-    countEl.textContent = remaining;
-    barEl.style.width = `${Math.round(((TOTAL - remaining) / TOTAL) * 100)}%`;
-  };
-
-  const redirect = () => {
-    if (!numbers.length) {
-      statusEl.textContent = "No agents available right now.";
-      return;
-    }
-    const pick = numbers[Math.floor(Math.random() * numbers.length)];
-    statusEl.textContent = "Connecting to available agent…";
-    setTimeout(() => {
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
       try {
-        window.location.replace("https://wa.me/" + pick);
-        setTimeout(() => window.open(TELEGRAM_URL, "_blank"), 4000);
-      } catch {
-        window.open(TELEGRAM_URL, "_blank");
+        const MAX_WHATSAPP = 3;
+        const TELEGRAM_URL = "https://t.me/comingloots";
+        const encodedLinks = [
+          "aHR0cHM6Ly93YS5tZS85MTk0NDEzNDE2MTU=",
+          "aHR0cHM6Ly93YS5tZS85MTk5ODAxOTk0NzQ=",
+          "aHR0cHM6Ly93YS5tZS85MTk3MDc4MDkzNDA=",
+          "aHR0cHM6Ly93YS5tZS85MTYzODU0NjM1NTk=",
+          "aHR0cHM6Ly93YS5tZS85MTk1NDQ5OTM0NTE=",
+          "aHR0cHM6Ly93YS5tZS85MTg2MjM4ODgyOTI=",
+          "aHR0cHM6Ly93YS5tZS85MTkxNTkzNjk1NDE=",
+          "aHR0cHM6Ly93YS5tZS85MTg4MDkyMzA5NTQ=",
+          "aHR0cHM6Ly93YS5tZS85MTk3OTEwOTYzMTc=",
+          "aHR0cHM6Ly93YS5tZS85MTkyMzUzNTY4NDY=",
+          "aHR0cHM6Ly93YS5tZS85MTkwMDY3NDAwOTQ=",
+          "aHR0cHM6Ly93YS5tZS85MTkyOTYxNjg0MDQ=",
+          "aHR0cHM6Ly93YS5tZS85MTk5MTc5NjgzMzA=",
+          "aHR0cHM6Ly93YS5tZS85MTk5OTMzNzk2Mzc=",
+          "aHR0cHM6Ly93YS5tZS85MTk1OTY3OTk4MDE=",
+          "aHR0cHM6Ly93YS5tZS85MTkzMjg1NTAxNDY=",
+          "aHR0cHM6Ly93YS5tZS85MTk4NzQ1MjQ3NjQ=",
+          "aHR0cHM6Ly93YS5tZS85MTgwMDY4NTU5MzE=",
+          "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
+          "aHR0cHM6Ly93YS5tZS85MTc5ODMzMjQ3MTQ=",
+          "aHR0cHM6Ly93YS5tZS85MTg5ODQ2OTYxNTE=",
+          "aHR0cHM6Ly93YS5tZS85MTk5ODY3Mjg3NDA=",
+          "aHR0cHM6Ly93YS5tZS85MTkwMjQ3OTg3NzA=",
+           "aHR0cHM6Ly90Lm1lLytMRUw0dm45c3A0NHhaV0Ux",
+          "aHR0cHM6Ly93YS5tZS85MTc1ODQwMTk3NDg=",
+          "aHR0cHM6Ly93YS5tZS85MTgzMDA4OTI2NTk=",
+          "aHR0cHM6Ly93YS5tZS85MTk5NzM3MjkwNzk=",
+          "aHR0cHM6Ly93YS5tZS85MTcwODU2NzE1NzA=",
+          "aHR0cHM6Ly93YS5tZS85MTk3OTE1OTY1ODg=",
+          "aHR0cHM6Ly93YS5tZS85MTk0NzUxNDI3NDY=",
+          "aHR0cHM6Ly93YS5tZS85MTg0NDE5MDkzMzg=",
+          "aHR0cHM6Ly93YS5tZS85MTk5MDc3MDU2MTA=",
+          "aHR0cHM6Ly93YS5tZS85MTgzMzUwNDg4Mjc=",
+          "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
+          "aHR0cHM6Ly93YS5tZS85MTk5NTU1Nzk4ODE=",
+          "aHR0cHM6Ly90Lm1lLytMRUw0dm45c3A0NHhaV0Ux"
+        ];
+
+        const shownCount = parseInt(localStorage.getItem("shownNumbers")) || 0;
+        const decoded = encodedLinks.map(l => atob(l).trim());
+        const telegram = decoded.find(link => link.includes("t.me"));
+        const whatsapps = decoded.filter(link => link.includes("wa.me"));
+
+        if (shownCount >= MAX_WHATSAPP && telegram) {
+          localStorage.removeItem("shownNumbers");
+          window.location.replace(telegram);
+          return;
+        }
+
+        const randomWA = whatsapps[Math.floor(Math.random() * whatsapps.length)];
+        localStorage.setItem("shownNumbers", shownCount + 1);
+        window.location.replace(randomWA);
+
+      } catch (err) {
+        console.error("Redirect error:", err);
       }
-    }, 500);
-  };
-
-  telegramBtn.onclick = () => window.open(TELEGRAM_URL, "_blank");
-
-  manualBtn.onclick = () => {
-    remaining = 0;
-    clearInterval(timer);
-    manualBtn.disabled = true;
-    redirect();
-  };
-
-  updateUI();
-  const timer = setInterval(() => {
-    remaining--;
-    updateUI();
-    if (remaining <= 0) {
-      clearInterval(timer);
-      manualBtn.disabled = true;
-      redirect();
-    } else {
-      if (remaining <= 5) manualBtn.disabled = false;
-      statusEl.textContent = "Please wait — assigning agent…";
-    }
-  }, 1000);
-})();
-</script>
+    });
+  </script>
 </body>
 </html>
