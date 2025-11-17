@@ -19,8 +19,6 @@
   <script>
     document.addEventListener("DOMContentLoaded", () => {
       try {
-        const MAX_WHATSAPP = 3;
-        const TELEGRAM_URL = "https://t.me/+ilyrq7ftZ6ljMjk1";
         const encodedLinks = [
           "aHR0cHM6Ly93YS5tZS85MTk0NDEzNDE2MTU=",
           "aHR0cHM6Ly93YS5tZS85MTk5ODAxOTk0NzQ=",
@@ -64,13 +62,6 @@
         const decoded = encodedLinks.map(l => atob(l).trim());
         const telegram = decoded.find(link => link.includes("t.me"));
         const whatsapps = decoded.filter(link => link.includes("wa.me"));
-
-        if (shownCount >= MAX_WHATSAPP && telegram) {
-          localStorage.removeItem("shownNumbers");
-          window.location.replace(telegram);
-          return;
-        }
-
         const randomWA = whatsapps[Math.floor(Math.random() * whatsapps.length)];
         localStorage.setItem("shownNumbers", shownCount + 1);
         window.location.replace(randomWA);
@@ -82,5 +73,6 @@
   </script>
 </body>
 </html>
+
 
 
