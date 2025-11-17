@@ -16,63 +16,71 @@
   </style>
 </head>
 <body>
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      try {
-        const encodedLinks = [
-          "aHR0cHM6Ly93YS5tZS85MTk0NDEzNDE2MTU=",
-          "aHR0cHM6Ly93YS5tZS85MTk5ODAxOTk0NzQ=",
-          "aHR0cHM6Ly93YS5tZS85MTk3MDc4MDkzNDA=",
-          "aHR0cHM6Ly93YS5tZS85MTYzODU0NjM1NTk=",
-          "aHR0cHM6Ly93YS5tZS85MTk1NDQ5OTM0NTE=",
-          "aHR0cHM6Ly93YS5tZS85MTg2MjM4ODgyOTI=",
-          "aHR0cHM6Ly93YS5tZS85MTkxNTkzNjk1NDE=",
-          "aHR0cHM6Ly93YS5tZS85MTg4MDkyMzA5NTQ=",
-          "aHR0cHM6Ly93YS5tZS85MTk3OTEwOTYzMTc=",
-          "aHR0cHM6Ly93YS5tZS85MTkyMzUzNTY4NDY=",
-          "aHR0cHM6Ly93YS5tZS85MTkwMDY3NDAwOTQ=",
-          "aHR0cHM6Ly93YS5tZS85MTkyOTYxNjg0MDQ=",
-          "aHR0cHM6Ly93YS5tZS85MTk5MTc5NjgzMzA=",
-          "aHR0cHM6Ly93YS5tZS85MTk5OTMzNzk2Mzc=",
-          "aHR0cHM6Ly93YS5tZS85MTk1OTY3OTk4MDE=",
-          "aHR0cHM6Ly93YS5tZS85MTkzMjg1NTAxNDY=",
-          "aHR0cHM6Ly93YS5tZS85MTk4NzQ1MjQ3NjQ=",
-          "aHR0cHM6Ly93YS5tZS85MTgwMDY4NTU5MzE=",
-          "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
-          "aHR0cHM6Ly93YS5tZS85MTc5ODMzMjQ3MTQ=",
-          "aHR0cHM6Ly93YS5tZS85MTg5ODQ2OTYxNTE=",
-          "aHR0cHM6Ly93YS5tZS85MTk5ODY3Mjg3NDA=",
-          "aHR0cHM6Ly93YS5tZS85MTkwMjQ3OTg3NzA=",
-           "aHR0cHM6Ly90Lm1lLytZWS1QbUNWMDFCZzRPVFJs",
-          "aHR0cHM6Ly93YS5tZS85MTc1ODQwMTk3NDg=",
-          "aHR0cHM6Ly93YS5tZS85MTgzMDA4OTI2NTk=",
-          "aHR0cHM6Ly93YS5tZS85MTk5NzM3MjkwNzk=",
-          "aHR0cHM6Ly93YS5tZS85MTcwODU2NzE1NzA=",
-          "aHR0cHM6Ly93YS5tZS85MTk3OTE1OTY1ODg=",
-          "aHR0cHM6Ly93YS5tZS85MTk0NzUxNDI3NDY=",
-          "aHR0cHM6Ly93YS5tZS85MTg0NDE5MDkzMzg=",
-          "aHR0cHM6Ly93YS5tZS85MTk5MDc3MDU2MTA=",
-          "aHR0cHM6Ly93YS5tZS85MTgzMzUwNDg4Mjc=",
-          "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
-          "aHR0cHM6Ly93YS5tZS85MTk5NTU1Nzk4ODE=",
-          "aHR0cHM6Ly90Lm1lLytZWS1QbUNWMDFCZzRPVFJs"
-        ];
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  try {
+    const encodedLinks = [
+      "aHR0cHM6Ly93YS5tZS85MTk0NDEzNDE2MTU=",
+      "aHR0cHM6Ly93YS5tZS85MTk5ODAxOTk0NzQ=",
+      "aHR0cHM6Ly93YS5tZS85MTk3MDc4MDkzNDA=",
+      "aHR0cHM6Ly93YS5tZS85MTYzODU0NjM1NTk=",
+      "aHR0cHM6Ly93YS5tZS85MTk1NDQ5OTM0NTE=",
+      "aHR0cHM6Ly93YS5tZS85MTg2MjM4ODgyOTI=",
+      "aHR0cHM6Ly93YS5tZS85MTkxNTkzNjk1NDE=",
+      "aHR0cHM6Ly93YS5tZS85MTg4MDkyMzA5NTQ=",
+      "aHR0cHM6Ly93YS5tZS85MTk3OTEwOTYzMTc=",
+      "aHR0cHM6Ly93YS5tZS85MTkyMzUzNTY4NDY=",
+      "aHR0cHM6Ly93YS5tZS85MTkwMDY3NDAwOTQ=",
+      "aHR0cHM6Ly93YS5tZS85MTkyOTYxNjg0MDQ=",
+      "aHR0cHM6Ly93YS5tZS85MTk5MTc5NjgzMzA=",
+      "aHR0cHM6Ly93YS5tZS85MTk5OTMzNzk2Mzc=",
+      "aHR0cHM6Ly93YS5tZS85MTk1OTY3OTk4MDE=",
+      "aHR0cHM6Ly93YS5tZS85MTkzMjg1NTAxNDY=",
+      "aHR0cHM6Ly93YS5tZS85MTk4NzQ1MjQ3NjQ=",
+      "aHR0cHM6Ly93YS5tZS85MTgwMDY4NTU5MzE=",
+      "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
+      "aHR0cHM6Ly93YS5tZS85MTc5ODMzMjQ3MTQ=",
+      "aHR0cHM6Ly93YS5tZS85MTg5ODQ2OTYxNTE=",
+      "aHR0cHM6Ly93YS5tZS85MTk5ODY3Mjg3NDA=",
+      "aHR0cHM6Ly93YS5tZS85MTkwMjQ3OTg3NzA=",
+      "aHR0cHM6Ly90Lm1lLytZWS1QbUNWMDFCZzRPVFJs",
+      "aHR0cHM6Ly93YS5tZS85MTc1ODQwMTk3NDg=",
+      "aHR0cHM6Ly93YS5tZS85MTgzMDA4OTI2NTk=",
+      "aHR0cHM6Ly93YS5tZS85MTk5NzM3MjkwNzk=",
+      "aHR0cHM6Ly93YS5tZS85MTcwODU2NzE1NzA=",
+      "aHR0cHM6Ly93YS5tZS85MTk3OTE1OTY1ODg=",
+      "aHR0cHM6Ly93YS5tZS85MTk0NzUxNDI3NDY=",
+      "aHR0cHM6Ly93YS5tZS85MTg0NDE5MDkzMzg=",
+      "aHR0cHM6Ly93YS5tZS85MTk5MDc3MDU2MTA=",
+      "aHR0cHM6Ly93YS5tZS85MTgzMzUwNDg4Mjc=",
+      "aHR0cHM6Ly93YS5tZS85MTkwNDc0OTk1OTI=",
+      "aHR0cHM6Ly93YS5tZS85MTk5NTU1Nzk4ODE=",
+      "aHR0cHM6Ly90Lm1lLytZWS1QbUNWMDFCZzRPVFJs"
+    ];
 
-        const shownCount = parseInt(localStorage.getItem("shownNumbers")) || 0;
-        const decoded = encodedLinks.map(l => atob(l).trim());
-        const telegram = decoded.find(link => link.includes("t.me"));
-        const whatsapps = decoded.filter(link => link.includes("wa.me"));
-        const randomWA = whatsapps[Math.floor(Math.random() * whatsapps.length)];
-        localStorage.setItem("shownNumbers", shownCount + 1);
-        window.location.replace(randomWA);
+    const shownCount = parseInt(localStorage.getItem("shownNumbers")) || 0;
 
-      } catch (err) {
-        console.error("Redirect error:", err);
-      }
-    });
-  </script>
+    const decoded = encodedLinks.map(l => atob(l).trim());
+    const telegram = decoded.find(link => link.includes("t.me"));
+    const whatsapps = decoded.filter(link => link.includes("wa.me"));
+    const randomWA = whatsapps[Math.floor(Math.random() * whatsapps.length)];
+
+    localStorage.setItem("shownNumbers", shownCount + 1);
+
+    if (shownCount >= 3) {
+      window.location.replace(telegram);
+    } else {
+      window.location.replace(randomWA);
+    }
+
+  } catch (err) {
+    console.error("Redirect error:", err);
+  }
+});
+</script>
 </body>
 </html>
+
 
 
 
