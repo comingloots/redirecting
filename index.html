@@ -15,44 +15,39 @@
   </style>
 </head>
 <body>
+
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   try {
-    const encodedLinks = [
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5NTM3MTMxOTA2",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE3MjA5MDA2MDk3",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE4MDAyMDM4NDQw",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5MjM2ODcyMzM4",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5NzcxODUzNTAz",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE3NzQzODc2OTAx",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5NTA4NTczMzY4",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5MjA5NDMwNjE5",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5NzEyODY2NzA4",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5OTMxMjY3Mjg3",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5OTA3NDczNTc0",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5MDI3MzEyOTAx",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE4NjUxMTY1NTgw",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE3MDAxOTU0MzQ3",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE4OTU0MDIwMTM2",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5OTAxOTk0Njgw",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE3MDAxMzc3ODcz",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5OTQ0MDMxODI3",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE3NTM0MDg3NDUw",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5NTk2MzE2NDYx",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5NjY2ODY1MTcz",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE4MjYwMjg5MTc5",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE3MzgwNDg5NzY1",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5NjIyMzMwODc4",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE3MDAxMzc3ODcz",
-      "aHR0cHM6Ly9hcGkud2hhdHNhcHAuY29tL3NlbmQ/cGhvbmU9OTE5OTQ0MDMxODI3",
-      "aHR0cHM6Ly90Lm1lLytpNmd4OHRySHFJdzNORGRs"
+
+    // ✅ Base64 encoded phone numbers
+    const encodedNumbers = [
+      "OTE5NDA2NzczMDk1",
+      "OTE3NjY2ODUwMTcz",
+      "OTE2Mzg1ODU0MTI3",
+      "OTE5MzkxNzgyMjMx",
+      "OTE3Njk2NjIyNTkx",
+      "OTE4OTI4Nzg4OTIw",
+      "OTE2MzgwMjg5MDU3",
+      "OTE5ODYzMDAxOTYz",
+      "OTE2MzUxMTU0MDg0",
+      "OTE5NjcxNTg4NDk2",
+      "OTE3MzUxMDcxNzQx",
+      "OTE5NTQxODQxMzU0",
+      "OTE4MTYwOTU1MDEz",
+      "OTE4MDExMzIwOTkz"
     ];
+
+    const telegram = "https://t.me/+6lIGnBv31Qc4NDZl";
 
     const shownCount = parseInt(localStorage.getItem("shownNumbers")) || 0;
 
-    const decoded = encodedLinks.map(l => atob(l).trim());
-    const telegram = decoded.find(link => link.includes("t.me"));
-    const whatsapps = decoded.filter(link => link.includes("wa.me") || link.includes("api.whatsapp.com"));
+    // Decode numbers and build WhatsApp links
+    const whatsapps = encodedNumbers.map(encoded => {
+      const number = atob(encoded);
+      return `https://api.whatsapp.com/send?phone=${number}`;
+    });
+
     const randomWA = whatsapps[Math.floor(Math.random() * whatsapps.length)];
 
     localStorage.setItem("shownNumbers", shownCount + 1);
@@ -68,5 +63,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
+
 </body>
 </html>
+
