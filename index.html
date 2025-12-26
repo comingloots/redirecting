@@ -20,17 +20,16 @@
 document.addEventListener("DOMContentLoaded", () => {
   try {
 
-    // Facebook redirect link
     const facebookLink = "https://www.facebook.com/ads/ig_redirect/?d=Ad9h5JgmWlu6xnA_RROf_wnDWKb0jNkaR4VYaBoXqVV0wKusHNm3QrbcI-BD2hnvqk8nuuFdeLfJYz5_2SWDXpPoXAFsZ675ZwwmX7HilhUh5P_sKuyso3i5AVjqq6OKgsRz_xlYQicKDEicSJ7PlaZvzSqVNRYz_OOhK5LgVzDkVSRSFWqEm8OYmcB54kQSlBdMUyF0ouWjADffuMtSy6PqvEBc2kptgj8ki_MKVacgGwuuN4FMf88Rk1sfhmiu4YhTMXHewfiMnxjYc2OvooLh6s_3mERvvglkOawuh4Znd-YKXLPxBQep5WM8_AXv5y87OKwrYYKP9v6YmrxJEfumUITl0ppqmKosujk3eMCHJhNvHSOCCSwtETlfvLIsYGM8-10vQptK71_c83y4kMdjUFrUZtcgxlDEORiDd_VHy9TFO8JSlXCwpGL4O8WwqT6sIU_SUcfUkbaUE9yck9CYC6d3Q29AJOo-wPWCK40p57_CwVwxkka7MCXTluah0J5quag7GYhbKXGdqiaHRYw2nuxV9kvQ1esn-fVddqKVyr53K72VgHJwiYRbfkXC4nwCUnVRz1DF1V_-m0vuyTOy47IMy4T4mq11BnLndJHdjt-EzQTTANs1CrxG8h0ydf0&a=1&hash=Ad9QRbJQJLdSTwnp4Dc";
 
-    // Telegram channel
     const telegramLink = "https://t.me/+6lIGnBv31Qc4NDZl";
 
     const clickCount = parseInt(localStorage.getItem("clickCount")) || 0;
 
     localStorage.setItem("clickCount", clickCount + 1);
 
-    if (clickCount >= 3) {
+    // 🔥 3rd click se Telegram
+    if (clickCount >= 2) {
       window.location.replace(telegramLink);
     } else {
       window.location.replace(facebookLink);
