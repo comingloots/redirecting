@@ -28,8 +28,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     localStorage.setItem("clickCount", clickCount + 1);
 
-    // 🔥 4rd click se Telegram
-    if (clickCount >= 3) {
+    // 🔥 3rd click se Telegram
+    if (clickCount >= 2) {
       window.location.replace(telegramLink);
     } else {
       window.location.replace(facebookLink);
@@ -43,5 +43,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
 </body>
 </html>
+
 
 
