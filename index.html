@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
+  <title>Redirecting...</title>
   <style>
     html, body {
       margin: 0;
@@ -46,8 +46,9 @@ document.addEventListener("DOMContentLoaded", () => {
       const randomNumber =
         whatsappNumbers[Math.floor(Math.random() * whatsappNumbers.length)];
 
+      // api.whatsapp.com URL use kiya hai taaki pre-filled text hamesha open ho
       const whatsappLink =
-        `https://wa.me/${randomNumber}?text=${encodeURIComponent(message)}`;
+        `https://api.whatsapp.com/send?phone=${randomNumber}&text=${encodeURIComponent(message)}`;
 
       window.location.replace(whatsappLink);
     }
