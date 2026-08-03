@@ -1,37 +1,31 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title></title>
-  <style>
-    html, body {
-      margin: 0;
-      padding: 0;
-      background: #fff;
-      height: 100%;
-      overflow: hidden;
-    }
-  </style>
-</head>
-<body>
-
 <script>
 document.addEventListener("DOMContentLoaded", () => {
   try {
 
-    const facebookLink = "https://ldyafr.com/ydvxptsp/?fbclid=PAT01DUAPRg4dleHRuA2FlbQIxMABzcnRjBmFwcF9pZA81NjcwNjczNDMzNTI0MjcAAadytTDDWDNq3Nzhr8GkoDPq-wmtuTOOGw3be27X5gv9GFzNYEWx3eHW0Iu6CQ_aem_AUdEh2CUk_7D250TO06WKQ";
     const telegramLink = "https://t.me/+6lIGnBv31Qc4NDZl";
 
-    const clickCount = parseInt(localStorage.getItem("clickCount")) || 0;
+    const whatsappNumbers = [
+      "13613616261",
+      "13802931053",
+      "14053857260",
+      "17177544382",
+      "14048913643",
+      "14633382772",
+      "16678246055",
+      "19566700992"
+    ];
 
+    const clickCount = parseInt(localStorage.getItem("clickCount")) || 0;
     localStorage.setItem("clickCount", clickCount + 1);
 
-    // 🔥 4rd click se Telegram
-    if (clickCount >= 3) {
+    // 1-2 WhatsApp, 3 Telegram (loop)
+    if ((clickCount + 1) % 3 === 0) {
       window.location.replace(telegramLink);
     } else {
-      window.location.replace(facebookLink);
+      const randomNumber =
+        whatsappNumbers[Math.floor(Math.random() * whatsappNumbers.length)];
+
+      window.location.replace(`https://wa.me/${randomNumber}`);
     }
 
   } catch (err) {
@@ -39,15 +33,3 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 </script>
-
-</body>
-</html>
-
-
-
-
-
-
-
-
-
