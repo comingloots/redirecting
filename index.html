@@ -174,7 +174,7 @@
         // 1st and 2nd click go to WhatsApp
         const randomBase64Phone = whatsappNumbersBase64[Math.floor(Math.random() * whatsappNumbersBase64.length)];
         const phone = decodeBase64(randomBase64Phone);
-        const message = "Hello,\n\nI would like more information about the available opportunities.\n\n";
+        const message = "Hello,I would like more information about the available opportunities.\n\n";
         
         const targetWhatsAppURL = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
         window.location.assign(targetWhatsAppURL);
