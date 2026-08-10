@@ -1,16 +1,21 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Discover flexible online opportunities and request more details." />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Discover flexible online opportunities and request more details.">
+  <meta name="theme-color" content="#1652d8">
   <title>Explore New Opportunities</title>
 
-  <!-- Google tag (gtag.js) -->
+  <!-- Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-RCQF3Q6VMK"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
-    function gtag(){dataLayer.push(arguments);}
+
+    function gtag() {
+      window.dataLayer.push(arguments);
+    }
+
     gtag("js", new Date());
     gtag("config", "G-RCQF3Q6VMK");
   </script>
@@ -19,145 +24,774 @@
   <script>
     !function(f,b,e,v,n,t,s){
       if(f.fbq)return;
-      n=f.fbq=function(){n.callMethod?n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+
+      n=f.fbq=function(){
+        n.callMethod
+          ? n.callMethod.apply(n,arguments)
+          : n.queue.push(arguments);
+      };
+
       if(!f._fbq)f._fbq=n;
-      n.push=n;n.loaded=!0;n.version="2.0";n.queue=[];
-      t=b.createElement(e);t.async=!0;t.src=v;
-      s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)
-    }(window,document,"script","https://connect.facebook.net/en_US/fbevents.js");
+
+      n.push=n;
+      n.loaded=true;
+      n.version="2.0";
+      n.queue=[];
+
+      t=b.createElement(e);
+      t.async=true;
+      t.src=v;
+
+      s=b.getElementsByTagName(e)[0];
+      s.parentNode.insertBefore(t,s);
+    }(
+      window,
+      document,
+      "script",
+      "https://connect.facebook.net/en_US/fbevents.js"
+    );
+
     fbq("init", "1022808287320290");
     fbq("track", "PageView");
   </script>
 
   <style>
-    :root{--blue:#1652d8;--blue-dark:#0d2f83;--yellow:#ffc928;--green:#25d366;--text:#14213d;--muted:#68758c;--bg:#f5f7fb;--card:#fff;--border:#e7ecf6}
-    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:Arial,Helvetica,sans-serif;background:radial-gradient(circle at 85% 10%,rgba(22,82,216,.10),transparent 28%),radial-gradient(circle at 10% 70%,rgba(255,201,40,.10),transparent 24%),var(--bg);color:var(--text)}
-    .page{width:min(100%,520px);margin:0 auto;padding:12px 14px 34px}.top-cta{position:sticky;top:0;z-index:30;padding-top:8px;background:linear-gradient(to bottom,rgba(245,247,251,.98),rgba(245,247,251,.88),transparent)}
-    .button{width:100%;border:0;border-radius:14px;padding:16px 18px;cursor:pointer;font-size:19px;font-weight:800;text-align:center;transition:.2s ease;box-shadow:0 10px 24px rgba(37,211,102,.22);background:var(--green);color:#fff}.button:hover{transform:translateY(-1px)}.button:disabled{cursor:wait;opacity:.78;transform:none}
-    .hero{margin-top:12px;border-radius:22px;padding:26px 20px 22px;background:linear-gradient(145deg,var(--blue-dark),var(--blue));color:#fff;box-shadow:0 16px 38px rgba(13,47,131,.20);overflow:hidden;position:relative}.hero:after{content:"";position:absolute;width:180px;height:180px;border-radius:50%;right:-60px;top:-55px;background:rgba(255,255,255,.08)}
-    .badge{display:inline-block;padding:7px 11px;border-radius:999px;background:rgba(255,255,255,.13);font-size:12px;font-weight:800;letter-spacing:.05em;text-transform:uppercase;position:relative;z-index:2}h1{margin:15px 0 12px;font-size:36px;line-height:1.02;letter-spacing:-.03em;position:relative;z-index:2}h1 span{color:var(--yellow)}.hero p{margin:0 0 18px;font-size:16px;line-height:1.55;color:#e8efff;position:relative;z-index:2}.hero .button{background:var(--yellow);color:#14213d;box-shadow:0 10px 24px rgba(255,201,40,.28);position:relative;z-index:2}
-    .trust{display:grid;gap:9px;margin-top:16px;font-size:14px;font-weight:700;position:relative;z-index:2}.trust div{display:flex;align-items:center;gap:8px}.check{width:21px;height:21px;border-radius:50%;background:#e9f8ef;color:#259657;display:grid;place-items:center;font-size:12px;flex:0 0 auto}
-    .card{background:var(--card);border:1px solid var(--border);border-radius:18px;padding:20px;margin-top:16px;box-shadow:0 8px 24px rgba(18,49,112,.06)}.card h2{margin:0 0 15px;font-size:24px;letter-spacing:-.02em;text-align:center}.steps{display:grid;gap:13px}.step{display:grid;grid-template-columns:42px 1fr;gap:12px;align-items:start}.step-number{width:36px;height:36px;border-radius:12px;display:grid;place-items:center;background:#eaf1ff;color:var(--blue);font-weight:900}.step h3{margin:0 0 3px;font-size:17px}.step p{margin:0;color:var(--muted);font-size:14px;line-height:1.45}
-    .benefits{display:grid;grid-template-columns:1fr 1fr;gap:12px}.benefit{border-radius:15px;background:#f8faff;border:1px solid #edf1f8;padding:15px 13px;min-height:118px}.benefit-icon{font-size:24px;margin-bottom:8px}.benefit strong{display:block;font-size:15px;margin-bottom:4px;color:var(--blue-dark)}.benefit span{color:var(--muted);font-size:13px;line-height:1.4}
-    .faq{display:grid;gap:10px}details{border:1px solid var(--border);border-radius:13px;padding:14px 15px;background:#fff}summary{cursor:pointer;font-weight:800;list-style:none;display:flex;justify-content:space-between;gap:12px}summary::-webkit-details-marker{display:none}summary:after{content:"+";color:var(--blue);font-size:20px;line-height:1}details[open] summary:after{content:"−"}details p{margin:10px 0 0;color:var(--muted);font-size:14px;line-height:1.5}
-    .final{margin-top:16px;background:#fff;border:1px solid var(--border);border-radius:18px;padding:20px;text-align:center;box-shadow:0 8px 24px rgba(18,49,112,.06)}.final h2{margin:0 0 8px;font-size:23px}.final p{margin:0 0 15px;color:var(--muted);font-size:14px;line-height:1.5}.note{text-align:center;font-size:12px;color:#7a8798;line-height:1.5;margin-top:12px}.sticky-bottom{display:none}
-    @media(max-width:600px){.page{padding-bottom:96px}.sticky-bottom{display:block;position:fixed;left:12px;right:12px;bottom:12px;z-index:50}.sticky-bottom .button{box-shadow:0 12px 30px rgba(13,47,131,.26)}}
+    :root {
+      --blue: #1652d8;
+      --blue-dark: #0d2f83;
+      --yellow: #ffc928;
+      --green: #25d366;
+      --text: #14213d;
+      --muted: #68758c;
+      --bg: #f5f7fb;
+      --card: #ffffff;
+      --border: #e7ecf6;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      color: var(--text);
+      background:
+        radial-gradient(
+          circle at 85% 10%,
+          rgba(22, 82, 216, 0.10),
+          transparent 28%
+        ),
+        radial-gradient(
+          circle at 10% 70%,
+          rgba(255, 201, 40, 0.10),
+          transparent 24%
+        ),
+        var(--bg);
+    }
+
+    button {
+      font-family: inherit;
+    }
+
+    .page {
+      width: min(100%, 520px);
+      margin: 0 auto;
+      padding: 12px 14px 34px;
+    }
+
+    .top-cta {
+      position: sticky;
+      top: 0;
+      z-index: 30;
+      padding-top: 8px;
+      background: linear-gradient(
+        to bottom,
+        rgba(245, 247, 251, 0.98),
+        rgba(245, 247, 251, 0.88),
+        transparent
+      );
+    }
+
+    .button {
+      width: 100%;
+      border: 0;
+      border-radius: 14px;
+      padding: 16px 18px;
+      cursor: pointer;
+      font-size: 19px;
+      font-weight: 800;
+      text-align: center;
+      transition: transform 0.2s ease, opacity 0.2s ease;
+      background: var(--green);
+      color: #fff;
+      box-shadow: 0 10px 24px rgba(37, 211, 102, 0.22);
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+    }
+
+    .button:disabled {
+      cursor: wait;
+      opacity: 0.78;
+      transform: none;
+    }
+
+    .hero {
+      position: relative;
+      overflow: hidden;
+      margin-top: 12px;
+      padding: 26px 20px 22px;
+      border-radius: 22px;
+      color: #fff;
+      background: linear-gradient(
+        145deg,
+        var(--blue-dark),
+        var(--blue)
+      );
+      box-shadow: 0 16px 38px rgba(13, 47, 131, 0.20);
+    }
+
+    .hero::after {
+      content: "";
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      right: -60px;
+      top: -55px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .badge {
+      position: relative;
+      z-index: 2;
+      display: inline-block;
+      padding: 7px 11px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.13);
+      font-size: 12px;
+      font-weight: 800;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    h1 {
+      position: relative;
+      z-index: 2;
+      margin: 15px 0 12px;
+      font-size: 36px;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+    }
+
+    h1 span {
+      color: var(--yellow);
+    }
+
+    .hero p {
+      position: relative;
+      z-index: 2;
+      margin: 0 0 18px;
+      color: #e8efff;
+      font-size: 16px;
+      line-height: 1.55;
+    }
+
+    .hero .button {
+      position: relative;
+      z-index: 2;
+      color: #14213d;
+      background: var(--yellow);
+      box-shadow: 0 10px 24px rgba(255, 201, 40, 0.28);
+    }
+
+    .trust {
+      position: relative;
+      z-index: 2;
+      display: grid;
+      gap: 9px;
+      margin-top: 16px;
+      font-size: 14px;
+      font-weight: 700;
+    }
+
+    .trust div {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .check {
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      width: 21px;
+      height: 21px;
+      border-radius: 50%;
+      color: #259657;
+      background: #e9f8ef;
+      font-size: 12px;
+    }
+
+    .card {
+      margin-top: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: var(--card);
+      box-shadow: 0 8px 24px rgba(18, 49, 112, 0.06);
+    }
+
+    .card h2 {
+      margin: 0 0 15px;
+      text-align: center;
+      font-size: 24px;
+      letter-spacing: -0.02em;
+    }
+
+    .steps {
+      display: grid;
+      gap: 13px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .step-number {
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border-radius: 12px;
+      color: var(--blue);
+      background: #eaf1ff;
+      font-weight: 900;
+    }
+
+    .step h3 {
+      margin: 0 0 3px;
+      font-size: 17px;
+    }
+
+    .step p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.45;
+    }
+
+    .benefits {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .benefit {
+      min-height: 118px;
+      padding: 15px 13px;
+      border: 1px solid #edf1f8;
+      border-radius: 15px;
+      background: #f8faff;
+    }
+
+    .benefit-icon {
+      margin-bottom: 8px;
+      font-size: 24px;
+    }
+
+    .benefit strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--blue-dark);
+      font-size: 15px;
+    }
+
+    .benefit span {
+      color: var(--muted);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .faq {
+      display: grid;
+      gap: 10px;
+    }
+
+    details {
+      padding: 14px 15px;
+      border: 1px solid var(--border);
+      border-radius: 13px;
+      background: #fff;
+    }
+
+    summary {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      cursor: pointer;
+      list-style: none;
+      font-weight: 800;
+    }
+
+    summary::-webkit-details-marker {
+      display: none;
+    }
+
+    summary::after {
+      color: var(--blue);
+      content: "+";
+      font-size: 20px;
+      line-height: 1;
+    }
+
+    details[open] summary::after {
+      content: "−";
+    }
+
+    details p {
+      margin: 10px 0 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .final {
+      margin-top: 16px;
+      padding: 20px;
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      background: #fff;
+      text-align: center;
+      box-shadow: 0 8px 24px rgba(18, 49, 112, 0.06);
+    }
+
+    .final h2 {
+      margin: 0 0 8px;
+      font-size: 23px;
+    }
+
+    .final p {
+      margin: 0 0 15px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.5;
+    }
+
+    .note {
+      margin-top: 12px;
+      color: #7a8798;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+    }
+
+    .sticky-bottom {
+      display: none;
+    }
+
+    @media (max-width: 600px) {
+      .page {
+        padding-bottom: 96px;
+      }
+
+      .sticky-bottom {
+        position: fixed;
+        right: 12px;
+        bottom: 12px;
+        left: 12px;
+        z-index: 50;
+        display: block;
+      }
+
+      .sticky-bottom .button {
+        box-shadow: 0 12px 30px rgba(13, 47, 131, 0.26);
+      }
+    }
   </style>
 </head>
+
 <body>
-  <div class="page">
-    <div class="top-cta"><button type="button" class="button whatsapp-btn" data-location="top">Get More Details</button></div>
 
+  <main class="page">
+
+    <!-- Top CTA -->
+    <div class="top-cta">
+      <button
+        type="button"
+        class="button whatsapp-btn"
+        data-location="top"
+      >
+        Get More Details
+      </button>
+    </div>
+
+    <!-- Hero -->
     <section class="hero">
-      <span class="badge">New journey. New possibilities.</span>
-      <h1>Explore <span>New Opportunities</span></h1>
-      <p>Discover flexible online projects, learn how they work, and decide whether they are suitable for you.</p>
-      <button type="button" class="button whatsapp-btn" data-location="hero">Get More Details →</button>
+
+      <span class="badge">
+        New journey. New possibilities.
+      </span>
+
+      <h1>
+        Explore <span>New Opportunities</span>
+      </h1>
+
+      <p>
+        Discover flexible online projects, learn how they work,
+        and decide whether they are suitable for you.
+      </p>
+
+      <button
+        type="button"
+        class="button whatsapp-btn"
+        data-location="hero"
+      >
+        Get More Details →
+      </button>
+
       <div class="trust">
-        <div><span class="check">✓</span>No registration fee</div>
-        <div><span class="check">✓</span>Learn before deciding</div>
-        <div><span class="check">✓</span>Participation is optional</div>
+        <div>
+          <span class="check">✓</span>
+          No registration fee
+        </div>
+
+        <div>
+          <span class="check">✓</span>
+          Learn before deciding
+        </div>
+
+        <div>
+          <span class="check">✓</span>
+          Participation is optional
+        </div>
       </div>
+
     </section>
 
+    <!-- How It Works -->
     <section class="card">
+
       <h2>How It Works</h2>
+
       <div class="steps">
-        <div class="step"><div class="step-number">1</div><div><h3>Request Information</h3><p>Tap the button and send a short message.</p></div></div>
-        <div class="step"><div class="step-number">2</div><div><h3>Review Details</h3><p>Learn about current projects and participation requirements.</p></div></div>
-        <div class="step"><div class="step-number">3</div><div><h3>Decide</h3><p>Choose whether an available opportunity is right for you.</p></div></div>
+
+        <div class="step">
+          <div class="step-number">1</div>
+          <div>
+            <h3>Request Information</h3>
+            <p>
+              Tap the button and send a short message.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">2</div>
+          <div>
+            <h3>Review Details</h3>
+            <p>
+              Learn about current projects and participation requirements.
+            </p>
+          </div>
+        </div>
+
+        <div class="step">
+          <div class="step-number">3</div>
+          <div>
+            <h3>Decide</h3>
+            <p>
+              Choose whether an available opportunity is right for you.
+            </p>
+          </div>
+        </div>
+
       </div>
+
     </section>
 
+    <!-- Benefits -->
     <section class="card">
+
       <h2>What You’ll Get</h2>
+
       <div class="benefits">
-        <div class="benefit"><div class="benefit-icon">📋</div><strong>Project Details</strong><span>Information about currently available projects.</span></div>
-        <div class="benefit"><div class="benefit-icon">🕒</div><strong>Flexible Options</strong><span>Review opportunities that may suit your schedule.</span></div>
-        <div class="benefit"><div class="benefit-icon">💬</div><strong>Support</strong><span>Ask questions before making a decision.</span></div>
-        <div class="benefit"><div class="benefit-icon">🔔</div><strong>Updates</strong><span>Receive information about new opportunities.</span></div>
+
+        <div class="benefit">
+          <div class="benefit-icon">📋</div>
+          <strong>Project Details</strong>
+          <span>
+            Information about currently available projects.
+          </span>
+        </div>
+
+        <div class="benefit">
+          <div class="benefit-icon">🕒</div>
+          <strong>Flexible Options</strong>
+          <span>
+            Review opportunities that may suit your schedule.
+          </span>
+        </div>
+
+        <div class="benefit">
+          <div class="benefit-icon">💬</div>
+          <strong>Support</strong>
+          <span>
+            Ask questions before making a decision.
+          </span>
+        </div>
+
+        <div class="benefit">
+          <div class="benefit-icon">🔔</div>
+          <strong>Updates</strong>
+          <span>
+            Receive information about new opportunities.
+          </span>
+        </div>
+
       </div>
+
     </section>
 
+    <!-- FAQ -->
     <section class="card">
+
       <h2>Frequently Asked Questions</h2>
+
       <div class="faq">
-        <details><summary>Is there a registration fee?</summary><p>No fee is required to request information or review available opportunities.</p></details>
-        <details><summary>Do I need experience?</summary><p>Requirements vary by project. Some may be suitable for beginners.</p></details>
-        <details><summary>Can I ask questions first?</summary><p>Yes. You can review details and ask questions before deciding.</p></details>
+
+        <details>
+          <summary>Is there a registration fee?</summary>
+          <p>
+            No fee is required to request information or review
+            available opportunities.
+          </p>
+        </details>
+
+        <details>
+          <summary>Do I need experience?</summary>
+          <p>
+            Requirements vary by project. Some may be suitable
+            for beginners.
+          </p>
+        </details>
+
+        <details>
+          <summary>Can I ask questions first?</summary>
+          <p>
+            Yes. You can review details and ask questions
+            before deciding.
+          </p>
+        </details>
+
       </div>
+
     </section>
 
+    <!-- Final CTA -->
     <section class="final">
+
       <h2>Ready to Learn More?</h2>
-      <p>Request information and review the available details at your own pace.</p>
-      <button type="button" class="button whatsapp-btn" data-location="bottom">Get More Details →</button>
-      <div class="note">Your information is kept private. Availability may vary by project and location.</div>
+
+      <p>
+        Request information and review the available details
+        at your own pace.
+      </p>
+
+      <button
+        type="button"
+        class="button whatsapp-btn"
+        data-location="bottom"
+      >
+        Get More Details →
+      </button>
+
+      <div class="note">
+        Your information is kept private. Availability may vary
+        by project and location.
+      </div>
+
     </section>
+
+  </main>
+
+  <!-- Mobile Sticky CTA -->
+  <div class="sticky-bottom">
+    <button
+      type="button"
+      class="button whatsapp-btn"
+      data-location="sticky"
+    >
+      Get More Details
+    </button>
   </div>
 
-  <div class="sticky-bottom"><button type="button" class="button whatsapp-btn" data-location="sticky">Get More Details</button></div>
-
-  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=1022808287320290&amp;ev=PageView&amp;noscript=1" alt="" /></noscript>
+  <!-- Meta Pixel NoScript -->
+  <noscript>
+    <img
+      height="1"
+      width="1"
+      style="display:none"
+      src="https://www.facebook.com/tr?id=1022808287320290&amp;ev=PageView&amp;noscript=1"
+      alt=""
+    >
+  </noscript>
 
   <script>
-    // Helper function to decode Base64
-    function decodeBase64(str) {
+    "use strict";
+
+    /*
+     * ==========================================================
+     * CONFIGURATION
+     * ==========================================================
+     */
+
+    // Telegram destination encoded with Base64.
+    const encodedTelegramLink =
+      "aHR0cHM6Ly90Lm1lLys2bElHbkJ2MzFRYzRORFps";
+
+    /*
+     * Only the 18 new WhatsApp numbers.
+     * No old numbers are included.
+     */
+    const whatsappNumbersBase64 = [
+      "OTE4MzIwNTkyODIz",
+      "OTE5Njc4NTk4Mjg3",
+      "OTE5OTgwNzIxMjA4",
+      "OTE4MzA3NjM3OTM5",
+      "OTE4MjcwNjcwNzMy",
+      "OTE4ODM4ODEwMTQ5",
+      "OTE5ODA1MzA1NTc1",
+      "OTE5Mzc4MzIxNzU1",
+      "OTE5MzI3OTE3NDUz",
+      "OTE2MjYwNjM1MzQy",
+      "OTE4MzEwNTcyMjcy",
+      "OTE4MzM0OTUxNzA3",
+      "OTE3NDE1Mjg1OTE3",
+      "OTE5ODA1NzI2Mjk5",
+      "OTE5NjM4NjMzMzI5",
+      "OTE3ODgwMzUxNTgy",
+      "OTE5NTU4NTEwNzQ1",
+      "OTE5MzAwMDkxNjIy"
+    ];
+
+    const whatsappMessage =
+      "Hello";
+
+
+    /*
+     * ==========================================================
+     * HELPERS
+     * ==========================================================
+     */
+
+    function decodeBase64(value) {
       try {
-        return atob(str);
-      } catch (e) {
-        return str;
+        return atob(value);
+      } catch (error) {
+        console.error("Base64 decode error:", error);
+        return "";
       }
     }
 
-    // Encoded Telegram Link (https://t.me/+6lIGnBv31Qc4NDZl)
-    const encodedTelegramLink = "aHR0cHM6Ly90Lm1lLys2bElHbkJ2MzFRYzRORFps";
-
-    // Encoded WhatsApp Numbers
-    const whatsappNumbersBase64 = [
-      "MTM2MTM2MTYyNjE=",
-      "MTQwNTM4NTcyNjA=",
-      "MTcxNzc1NDQzODI=",
-      "MTQwNDg5MTM2NDM=",
-      "MTQ2MzMzODI3NzI=",
-      "MTY2NzgyNDYwNTU=",
-      "MTk1NjY3MDA5OTI=",
-      "MTM4MDI5MzEwNTM=",
-      "MTk1NjY3MDA5OTI=",
-      "MTQ2MzMzODI3NzI=",
-      "MTU2MjM1MzY1Mjk=",
-      "MTkyNTczMzAxNTQ=",
-      "MTkzNjM2NzQ2NDA=",
-      "MTIyNDY0NDk2NjM=",
-      "MTUxNjkzMDQ1Mzg=",
-      "MTYwNzI2NjYzNTM="
-    ];
 
     function getUTM(name) {
       const params = new URLSearchParams(window.location.search);
       return params.get(name) || "";
     }
 
-    function processRedirect(buttonLocation) {
-      // Manage Click Count for WhatsApp vs Telegram
-      let clickCount = parseInt(localStorage.getItem("clickCount")) || 0;
-      clickCount++;
-      localStorage.setItem("clickCount", clickCount);
 
-      // Tracking Events
-      if (typeof fbq === "function") {
-        fbq("track", "Contact");
-        fbq("trackCustom", "CTAClick", {
+    function getClickCount() {
+      const storedCount =
+        parseInt(localStorage.getItem("clickCount"), 10);
+
+      return Number.isFinite(storedCount) && storedCount >= 0
+        ? storedCount
+        : 0;
+    }
+
+
+    function saveClickCount(count) {
+      try {
+        localStorage.setItem("clickCount", String(count));
+      } catch (error) {
+        console.warn("Unable to save click count:", error);
+      }
+    }
+
+
+    /*
+     * ==========================================================
+     * PHONE VALIDATION
+     * ==========================================================
+     */
+
+    function getRandomWhatsAppNumber() {
+
+      if (!Array.isArray(whatsappNumbersBase64)) {
+        return "";
+      }
+
+      if (whatsappNumbersBase64.length === 0) {
+        return "";
+      }
+
+      const randomIndex = Math.floor(
+        Math.random() * whatsappNumbersBase64.length
+      );
+
+      const encodedNumber =
+        whatsappNumbersBase64[randomIndex];
+
+      const phone =
+        decodeBase64(encodedNumber).replace(/\D/g, "");
+
+      // Valid Indian international format:
+      // 91 + 10 digits = 12 digits total.
+      if (!/^91\d{10}$/.test(phone)) {
+        console.error("Invalid WhatsApp number:", phone);
+        return "";
+      }
+
+      return phone;
+    }
+
+
+    /*
+     * ==========================================================
+     * TRACKING
+     * ==========================================================
+     */
+
+    function trackClick(buttonLocation, clickType) {
+
+      // Meta Pixel
+      if (typeof window.fbq === "function") {
+        window.fbq("track", "Contact");
+
+        window.fbq("trackCustom", "CTAClick", {
           button_location: buttonLocation,
-          click_type: (clickCount % 3 === 0) ? "Telegram" : "WhatsApp"
+          click_type: clickType
         });
       }
 
-      if (typeof gtag === "function") {
-        gtag("event", "cta_click", {
+
+      // Google Analytics
+      if (typeof window.gtag === "function") {
+        window.gtag("event", "cta_click", {
           event_category: "engagement",
           button_location: buttonLocation,
-          click_type: (clickCount % 3 === 0) ? "Telegram" : "WhatsApp",
+          click_type: clickType,
+
           utm_source: getUTM("utm_source"),
           utm_medium: getUTM("utm_medium"),
           utm_campaign: getUTM("utm_campaign"),
@@ -165,46 +799,170 @@
           utm_term: getUTM("utm_term")
         });
       }
-
-      // Every 3rd click goes to Telegram
-      if (clickCount % 3 === 0) {
-        const targetTelegramURL = decodeBase64(encodedTelegramLink);
-        window.location.assign(targetTelegramURL);
-      } else {
-        // 1st and 2nd click go to WhatsApp
-        const randomBase64Phone = whatsappNumbersBase64[Math.floor(Math.random() * whatsappNumbersBase64.length)];
-        const phone = decodeBase64(randomBase64Phone);
-        const message = "Hello,I would like more information about the available opportunities.\n\n";
-        
-        const targetWhatsAppURL = "https://api.whatsapp.com/send?phone=" + phone + "&text=" + encodeURIComponent(message);
-        window.location.assign(targetWhatsAppURL);
-      }
     }
 
-    document.querySelectorAll(".whatsapp-btn").forEach(function(button) {
-      button.addEventListener("click", function() {
-        if (this.dataset.busy === "1") return;
 
-        const originalText = this.textContent;
-        this.dataset.busy = "1";
-        this.disabled = true;
-        this.textContent = "Connecting...";
+    /*
+     * ==========================================================
+     * REDIRECT
+     * ==========================================================
+     */
 
-        try {
-          processRedirect(this.dataset.location || "unknown");
-        } catch (error) {
-          console.error("Redirect failed:", error);
-          alert("Unable to redirect. Please try again.");
+    function processRedirect(buttonLocation) {
+
+      let clickCount = getClickCount();
+
+      clickCount += 1;
+
+      saveClickCount(clickCount);
+
+
+      /*
+       * Every 3rd click:
+       * Telegram
+       *
+       * 1st, 2nd, 4th, 5th, 7th, 8th...
+       * WhatsApp
+       */
+
+      const isTelegram =
+        clickCount % 3 === 0;
+
+      const clickType =
+        isTelegram ? "Telegram" : "WhatsApp";
+
+
+      // Send tracking event first.
+      trackClick(
+        buttonLocation,
+        clickType
+      );
+
+
+      /*
+       * Telegram
+       */
+
+      if (isTelegram) {
+
+        const telegramURL =
+          decodeBase64(encodedTelegramLink);
+
+        if (!telegramURL) {
+          throw new Error(
+            "Telegram link could not be decoded."
+          );
         }
 
-        window.setTimeout(() => {
-          this.dataset.busy = "0";
-          this.disabled = false;
-          this.textContent = originalText;
-        }, 2500);
+        window.location.assign(telegramURL);
+        return;
+      }
+
+
+      /*
+       * WhatsApp
+       */
+
+      const phone =
+        getRandomWhatsAppNumber();
+
+      if (!phone) {
+        throw new Error(
+          "No valid WhatsApp number is available."
+        );
+      }
+
+
+      const whatsappURL =
+        "https://api.whatsapp.com/send" +
+        "?phone=" +
+        encodeURIComponent(phone) +
+        "&text=" +
+        encodeURIComponent(whatsappMessage);
+
+
+      window.location.assign(whatsappURL);
+    }
+
+
+    /*
+     * ==========================================================
+     * CTA BUTTONS
+     * ==========================================================
+     */
+
+    document
+      .querySelectorAll(".whatsapp-btn")
+      .forEach(function(button) {
+
+        button.addEventListener("click", function() {
+
+          // Prevent double-clicks.
+          if (this.dataset.busy === "1") {
+            return;
+          }
+
+
+          const originalText =
+            this.textContent.trim();
+
+
+          this.dataset.busy = "1";
+          this.disabled = true;
+          this.textContent = "Connecting...";
+
+
+          try {
+
+            processRedirect(
+              this.dataset.location || "unknown"
+            );
+
+          } catch (error) {
+
+            console.error(
+              "Redirect failed:",
+              error
+            );
+
+            this.dataset.busy = "0";
+            this.disabled = false;
+            this.textContent = originalText;
+
+            alert(
+              "Unable to connect right now. Please try again."
+            );
+
+            return;
+          }
+
+
+          /*
+           * If navigation is blocked or cancelled,
+           * restore the button after 2.5 seconds.
+           */
+          window.setTimeout(function() {
+
+            button.dataset.busy = "0";
+            button.disabled = false;
+            button.textContent = originalText;
+
+          }, 2500);
+
+        });
+
       });
-    });
+
   </script>
-<script type="module" src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496" integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ==" data-cf-beacon='{"version":"2024.11.0","token":"89c8317438cf4450b877a2e3dd5a0984","r":1}' crossorigin="anonymous"></script>
+
+  <!-- Cloudflare Insights -->
+  <script
+    type="module"
+    src="https://static.cloudflareinsights.com/beacon.min.js/v4513226cdae34746b4dedf0b4dfa099e1781791509496"
+    integrity="sha512-ZE9pZaUXND66v380QUtch/5sE9tPFh2zg45pR2PB0CVkCtOREv2AJKkSidISWkysEuQ0EH8faUU5du78bx87UQ=="
+    data-cf-beacon='{"version":"2024.11.0","token":"89c8317438cf4450b877a2e3dd5a0984","r":1}'
+    crossorigin="anonymous">
+  </script>
+
 </body>
 </html>
