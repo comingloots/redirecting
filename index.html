@@ -649,108 +649,27 @@
   <script>
     "use strict";
 
-    /*
-     * ==========================================================
-     * CONFIGURATION
-     * ==========================================================
-     */
-
-    // Telegram destination encoded with Base64.
-    const encodedTelegramLink =
-      "aHR0cHM6Ly90Lm1lLys2bElHbkJ2MzFRYzRORFps";
-
-    /*
-     * Only the 18 new WhatsApp numbers.
-     * No old numbers are included.
-     */ const whatsappNumbersBase64 = [
-  "OTE5NjMyOTQxNjE1",
-  "OTE4OTcyMjM4MzE1",
-  "OTE2Mzg2NjgxMjYx",
-  "OTE4NDUwODMzNjQ5",
-  "OTE5ODYxOTAzOTEx",
-  "OTE3MzY1MDk0Njgx",
-  "OTE5NzM5NTgyODAz",
-  "OTE4MjQ5OTQxNjE4",
-  "OTE4MzAzNTExNDgw",
-  "OTE5MDAyNDAzNTA0",
-  "OTE5NTk5Nzk3NTgy",
-  "OTE3ODYwOTM0OTY4",
-  "OTE5NTA1Nzk0NjI4",
-  "OTE5NjM2MzExMDEz",
-  "OTE3NzUwOTA3OTIw",
-  "OTE3NTY4MDc4MDcx",
-  "OTE5NTQwMzk3Nzg5",
-  "OTE4ODY3MzE4MjYz",
-  "OTE3ODI3NTk1MTM0",
-  "OTE5OTgxNjg0NzY2",
-  "OTE5NjA4OTY5MDY2",
-  "OTE4NzE3ODczNTM2",
-  "OTE4OTgxMTkyNTQ0",
-  "OTE5MzY2MDg2MTgz",
-  "OTE3OTkxMTA0MDY4",
-  "OTE2MzY5NjMzNTI1",
-  "OTE4NDYxMDk2NzI5",
-  "OTE3OTg5Njk1NDk0",
-  "OTE5NjA3NDUzNTY1",
-  "OTE2MjgzMTY2Nzg3",
-  "OTE4OTI3OTgyOTA3",
-  "OTE5NDgyODg5Mzc3",
-  "OTE3MDk2OTM0NjMw",
-  "OTE5MjM1NDM1NTEy",
-  "OTE4NDEyODUzMjgy",
-  "OTE4ODMwNDM4ODI3",
-  "OTE3NjcxMDkyMjc0",
-  "OTE5Njc2MzkzMTE0",
-  "OTE4ODYzODk4Njc4",
-  "OTE5OTQ3NTgzMDc1",
-  "OTE4MDkwMjE1MjU5",
-  "OTE4MjE3ODY0ODQ4",
-  "OTE4MzA5ODk0OTYx",
-  "OTE3MzAyMTMyNDYx",
-  "OTE4MjM3NDYzMjA3",
-  "OTE4MDUwODEyODk4",
-  "OTE5MTc4MDM2NTU3",
-  "OTE5OTU5NzUyMDc4",
-  "OTE4MTc4NjM5Nzg3",
-  "OTE4ODk0MDcxNTk5",
-  "OTE4ODA1NjYwOTc0",
-  "OTE5NjY1NDQ5ODg1"
-];
-    const whatsappMessage =
-      "Hello, I would like more information about the available opportunities.";
-
-
-    /*
-     * ==========================================================
-     * HELPERS
-     * ==========================================================
-     */
-
-    function decodeBase64(value) {
-      try {
-        return atob(value);
-      } catch (error) {
-        console.error("Base64 decode error:", error);
-        return "";
-      }
-    }
-
+    // Destination URLs rotate in order on each CTA click.
+    const redirectURLs = [
+      "https://cloaknews.com/a/351zPy",
+      "https://cloaknews.com/a/KIIQ2P",
+      "https://cloaknews.com/a/30vgF9",
+      "https://t.me/+6lIGnBv31Qc4NFzl"
+    ];
 
     function getUTM(name) {
       const params = new URLSearchParams(window.location.search);
       return params.get(name) || "";
     }
 
-
     function getClickCount() {
-      const storedCount =
-        parseInt(localStorage.getItem("clickCount"), 10);
-
-      return Number.isFinite(storedCount) && storedCount >= 0
-        ? storedCount
-        : 0;
+      try {
+        const storedCount = parseInt(localStorage.getItem("clickCount"), 10);
+        return Number.isFinite(storedCount) && storedCount >= 0 ? storedCount : 0;
+      } catch (error) {
+        return 0;
+      }
     }
-
 
     function saveClickCount(count) {
       try {
@@ -760,70 +679,20 @@
       }
     }
 
-
-    /*
-     * ==========================================================
-     * PHONE VALIDATION
-     * ==========================================================
-     */
-
-    function getRandomWhatsAppNumber() {
-
-      if (!Array.isArray(whatsappNumbersBase64)) {
-        return "";
-      }
-
-      if (whatsappNumbersBase64.length === 0) {
-        return "";
-      }
-
-      const randomIndex = Math.floor(
-        Math.random() * whatsappNumbersBase64.length
-      );
-
-      const encodedNumber =
-        whatsappNumbersBase64[randomIndex];
-
-      const phone =
-        decodeBase64(encodedNumber).replace(/\D/g, "");
-
-      // Valid Indian international format:
-      // 91 + 10 digits = 12 digits total.
-      if (!/^91\d{10}$/.test(phone)) {
-        console.error("Invalid WhatsApp number:", phone);
-        return "";
-      }
-
-      return phone;
-    }
-
-
-    /*
-     * ==========================================================
-     * TRACKING
-     * ==========================================================
-     */
-
-    function trackClick(buttonLocation, clickType) {
-
-      // Meta Pixel
+    function trackClick(buttonLocation) {
       if (typeof window.fbq === "function") {
         window.fbq("track", "Contact");
-
         window.fbq("trackCustom", "CTAClick", {
           button_location: buttonLocation,
-          click_type: clickType
+          click_type: "Website"
         });
       }
 
-
-      // Google Analytics
       if (typeof window.gtag === "function") {
         window.gtag("event", "cta_click", {
           event_category: "engagement",
           button_location: buttonLocation,
-          click_type: clickType,
-
+          click_type: "Website",
           utm_source: getUTM("utm_source"),
           utm_medium: getUTM("utm_medium"),
           utm_campaign: getUTM("utm_campaign"),
@@ -833,158 +702,43 @@
       }
     }
 
-
-    /*
-     * ==========================================================
-     * REDIRECT
-     * ==========================================================
-     */
-
     function processRedirect(buttonLocation) {
-
-      let clickCount = getClickCount();
-
-      clickCount += 1;
-
+      const clickCount = getClickCount() + 1;
       saveClickCount(clickCount);
 
-
-      /*
-       * Every 3rd click:
-       * Telegram
-       *
-       * 1st, 2nd, 4th, 5th, 7th, 8th...
-       * WhatsApp
-       */
-
-      const isTelegram =
-        clickCount % 3 === 0;
-
-      const clickType =
-        isTelegram ? "Telegram" : "WhatsApp";
-
-
-      // Send tracking event first.
-      trackClick(
-        buttonLocation,
-        clickType
-      );
-
-
-      /*
-       * Telegram
-       */
-
-      if (isTelegram) {
-
-        const telegramURL =
-          decodeBase64(encodedTelegramLink);
-
-        if (!telegramURL) {
-          throw new Error(
-            "Telegram link could not be decoded."
-          );
-        }
-
-        window.location.assign(telegramURL);
-        return;
-      }
-
-
-      /*
-       * WhatsApp
-       */
-
-      const phone =
-        getRandomWhatsAppNumber();
-
-      if (!phone) {
-        throw new Error(
-          "No valid WhatsApp number is available."
-        );
-      }
-
-
-      const whatsappURL =
-        "https://api.whatsapp.com/send" +
-        "?phone=" +
-        encodeURIComponent(phone) +
-        "&text=" +
-        encodeURIComponent(whatsappMessage);
-
-
-      window.location.assign(whatsappURL);
+      // Sequence: URL 1, URL 2, URL 3, then repeat from URL 1.
+      const redirectIndex = (clickCount - 1) % redirectURLs.length;
+      trackClick(buttonLocation);
+      window.location.assign(redirectURLs[redirectIndex]);
     }
 
+    document.querySelectorAll(".whatsapp-btn").forEach(function(button) {
+      button.addEventListener("click", function() {
+        if (this.dataset.busy === "1") return;
 
-    /*
-     * ==========================================================
-     * CTA BUTTONS
-     * ==========================================================
-     */
+        const originalText = this.textContent.trim();
+        this.dataset.busy = "1";
+        this.disabled = true;
+        this.textContent = "Connecting...";
 
-    document
-      .querySelectorAll(".whatsapp-btn")
-      .forEach(function(button) {
+        try {
+          processRedirect(this.dataset.location || "unknown");
+        } catch (error) {
+          console.error("Redirect failed:", error);
+          this.dataset.busy = "0";
+          this.disabled = false;
+          this.textContent = originalText;
+          alert("Unable to connect right now. Please try again.");
+          return;
+        }
 
-        button.addEventListener("click", function() {
-
-          // Prevent double-clicks.
-          if (this.dataset.busy === "1") {
-            return;
-          }
-
-
-          const originalText =
-            this.textContent.trim();
-
-
-          this.dataset.busy = "1";
-          this.disabled = true;
-          this.textContent = "Connecting...";
-
-
-          try {
-
-            processRedirect(
-              this.dataset.location || "unknown"
-            );
-
-          } catch (error) {
-
-            console.error(
-              "Redirect failed:",
-              error
-            );
-
-            this.dataset.busy = "0";
-            this.disabled = false;
-            this.textContent = originalText;
-
-            alert(
-              "Unable to connect right now. Please try again."
-            );
-
-            return;
-          }
-
-
-          /*
-           * If navigation is blocked or cancelled,
-           * restore the button after 2.5 seconds.
-           */
-          window.setTimeout(function() {
-
-            button.dataset.busy = "0";
-            button.disabled = false;
-            button.textContent = originalText;
-
-          }, 2500);
-
-        });
-
+        window.setTimeout(function() {
+          button.dataset.busy = "0";
+          button.disabled = false;
+          button.textContent = originalText;
+        }, 2500);
       });
-
+    });
   </script>
 
   <!-- Cloudflare Insights -->
